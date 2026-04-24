@@ -95,7 +95,10 @@ public class SelectorFuncion extends JFrame {
 		return new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
-		        JOptionPane.showMessageDialog(null, "Label clicked!" + horario.hora);
+		    	SelectorAsientos asiento = new SelectorAsientos();
+		        asiento.setSize(800, 720);
+				asiento.setLocationRelativeTo(null);
+		        asiento.setVisible(true);
 		    }
 
 		    @Override

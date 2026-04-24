@@ -28,12 +28,14 @@ import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class InicioCartelera extends JFrame {
+public class InicioCartelera extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnNewButton;
+	private JButton btnLogin;
 
 	ArrayList<Cartelera> peliculas;
 	private JLabel lblCabecera;
@@ -73,12 +75,13 @@ public class InicioCartelera extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnNewButton = new JButton("Usuario");
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorder(null);
-		btnNewButton.setBackground(Color.ORANGE);
-		btnNewButton.setBounds(685, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		btnLogin = new JButton("Usuario");
+		btnLogin.addActionListener(this);
+		btnLogin.setFocusPainted(false);
+		btnLogin.setBorder(null);
+		btnLogin.setBackground(Color.ORANGE);
+		btnLogin.setBounds(685, 11, 89, 23);
+		contentPane.add(btnLogin);
 
 		lblCabecera = new JLabel("  CARTELERA");
 		lblCabecera.setFont(new Font("Segoe UI", Font.BOLD, 30));
@@ -147,7 +150,6 @@ public class InicioCartelera extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//System.out.println("Seleccionaste" + pelicula.titulo);
 				SelectorFuncion funcion = new SelectorFuncion(pelicula);
 				funcion.setSize(800, 720);
 				funcion.setLocationRelativeTo(null);
@@ -157,5 +159,14 @@ public class InicioCartelera extends JFrame {
 
 		return card;
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLogin) {
+			actionPerformedBtnLogin(e);
+		}
+	}
+	protected void actionPerformedBtnLogin(ActionEvent e) {
+		Login login = new Login();
+		login.setVisible(true);
 	}
 }

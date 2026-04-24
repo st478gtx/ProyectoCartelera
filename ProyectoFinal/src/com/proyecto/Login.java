@@ -45,7 +45,7 @@ public class Login extends JFrame {
 
     public Login() {
         setTitle("Iniciar sesión");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(398, 408);
         setLocationRelativeTo(null);
         setResizable(false);
