@@ -11,8 +11,12 @@ import com.proyecto.modelo.Cartelera;
 import com.proyecto.modelo.Funcion;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -60,6 +64,11 @@ public class SelectorFuncion extends JFrame {
 			hora.setBackground(new Color(255, 128, 64));
 			hora.setOpaque(true);
 			hora.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			
+			hora.addMouseListener(
+					labelClick(horario)
+			);
+			
 			panel.add(hora);
 		}
 		
@@ -80,6 +89,25 @@ public class SelectorFuncion extends JFrame {
 		lblNewLabel.setBounds(556, 75, 190, 34);
 		contentPane.add(lblNewLabel);
 
+	}
+
+	private MouseAdapter labelClick(Funcion horario) {
+		return new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        JOptionPane.showMessageDialog(null, "Label clicked!" + horario.hora);
+		    }
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        
+		    }
+		};
 	}
 	
 	private ImageIcon imagenProcesada(String ruta) {
