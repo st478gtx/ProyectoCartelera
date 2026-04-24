@@ -6,6 +6,7 @@ import java.util.List;
 public class Cartelera {
 
 	public String titulo;
+	public String tituloNormal = "";
 	public String descripcion;
 	public String ruta;
 	public String duracion;
@@ -30,9 +31,10 @@ public class Cartelera {
 		
 	    
 	    Cartelera peli1 = new Cartelera("<html><div style='text-align:center;'>PROYECTO FIN DEL<br> MUNDO</div><html>",
-				"Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.",
-				"resources/peliculas/HO00008354.jpg", "2h 36m");
+				"<html><div style='text-align:justify;'>Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.</div></html>",
+				"resources/peliculas/HO00008354.jpg", "2h 36m");	    
 	    
+	    peli1.tituloNormal = "PROYECTO FIN DEL MUNDO";
 	    peli1.funciones.add(new Funcion(peli1, "16:00", sala1));
 	    peli1.funciones.add(new Funcion(peli1, "18:30", sala2));
 	    peli1.funciones.add(new Funcion(peli1, "19:00", sala3));
@@ -41,9 +43,13 @@ public class Cartelera {
 	    peliculas.add(peli1);
 	    
 	    Cartelera peli2 = new Cartelera("<html><div style='text-align:center;'>CHAO LA SIRENA</div><html>",
-				"Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.",
+				"<html><div style='text-align:justify;'>Ambientada en un mundo futurista donde humanos y sirenas coexisten,"
+				+ " esta alocada comedia romántica con toques de fantasía sigue a un tranquilo "
+				+ "oficinista llamado Stephan, cuya rutina se ve alterada cuando la princesa sirena "
+				+ "ChaO le propone matrimonio inesperadamente. Un amor inesperado y genuino comenzará a forjarse.</div></html>",
 				"resources/peliculas/HO00009113.jpg", "1h 30m");
 	    
+	    peli2.tituloNormal = "CHAO LA SIRENA";
 	    peli2.funciones.add(new Funcion(peli2, "11:00", sala1));
 	    peli2.funciones.add(new Funcion(peli2, "13:30", sala2));
 	    peli2.funciones.add(new Funcion(peli2, "16:00", salaXD));
@@ -54,9 +60,10 @@ public class Cartelera {
 		//MODIFICAR PELICULAS 3 - 6
 		
 		Cartelera peli3 = new Cartelera("<html><div style='text-align:center;'>MICHAEL</div><html>",
-				"Película biográfica sobre el rey del pop, Michael Jackson. Retratará al cantante desde sus inicios hasta su trágico fallecimiento en 2009.",
+				"<html><div>Película biográfica sobre el rey del pop, Michael Jackson. Retratará al cantante desde sus inicios hasta su trágico fallecimiento en 2009.</div></html>",
 				"resources/peliculas/HO00008584.jpg", "2h 10m");
 	    
+		peli3.tituloNormal = "MICHAEL";
 	    peli3.funciones.add(new Funcion(peli3, "13:00", sala1));
 	    peli3.funciones.add(new Funcion(peli3, "14:30", sala2));
 	    peli3.funciones.add(new Funcion(peli3, "17:00", salaXD));
