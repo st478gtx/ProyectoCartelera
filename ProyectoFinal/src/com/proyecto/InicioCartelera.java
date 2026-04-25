@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import com.proyecto.modelo.Cartelera;
+import com.proyecto.modelo.Usuario;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -41,6 +42,9 @@ public class InicioCartelera extends JFrame implements ActionListener {
 	private JLabel lblCabecera;
 	private JScrollPane scrollPane;
 	private JPanel panel_content;
+
+	Usuario usuario;
+	private JLabel lblUsuario;
 
 	/**
 	 * Launch the application.
@@ -67,6 +71,9 @@ public class InicioCartelera extends JFrame implements ActionListener {
 
 		peliculas = Cartelera.listPeliculas();
 
+		usuario = new Usuario();
+		usuario.usuariosIniciales();
+
 		setTitle("Seleccionar Película");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,20 +82,13 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnLogin = new JButton("Usuario");
+		btnLogin = new JButton("Ingresar");
 		btnLogin.addActionListener(this);
 		btnLogin.setFocusPainted(false);
 		btnLogin.setBorder(null);
 		btnLogin.setBackground(Color.ORANGE);
 		btnLogin.setBounds(685, 11, 89, 23);
 		contentPane.add(btnLogin);
-
-		lblCabecera = new JLabel("  CARTELERA");
-		lblCabecera.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblCabecera.setBackground(new Color(255, 128, 64));
-		lblCabecera.setOpaque(true);
-		lblCabecera.setBounds(0, 0, 784, 63);
-		contentPane.add(lblCabecera);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
@@ -103,9 +103,26 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		panel_content.setBackground(Color.DARK_GRAY);
 		panel_content.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
 
+		lblUsuario = new JLabel("");
+		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblUsuario.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblUsuario.setBounds(571, 11, 105, 23);
+		contentPane.add(lblUsuario);
+
+		lblCabecera = new JLabel("  CARTELERA");
+		lblCabecera.setFont(new Font("Segoe UI", Font.BOLD, 30));
+		lblCabecera.setBackground(new Color(255, 128, 64));
+		lblCabecera.setOpaque(true);
+		lblCabecera.setBounds(0, 0, 784, 63);
+		contentPane.add(lblCabecera);
+
 		for (var pelicula : peliculas) {
 			panel_content.add(crearTarjeta(pelicula));
 		}
+
+		// if (usuario.getUsuarioLogueado() != "") {
+		// usuarioLogueado(usuario.getUsuarioLogueado());
+		// }
 
 	}
 
@@ -160,13 +177,35 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		return card;
 
 	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnLogin) {
 			actionPerformedBtnLogin(e);
 		}
 	}
+
 	protected void actionPerformedBtnLogin(ActionEvent e) {
-		Login login = new Login();
-		login.setVisible(true);
+		Login login = new Login(this, usuario);
+
+		if (btnLogin.getText().equals("Salir")) {
+			buttomLogin();
+		} else {
+			login.setVisible(true);
+		}
+
+	}
+
+	public void usuarioLogueado() {
+		lblUsuario.setText("Hola " + usuario.getUsuarioLogueado());
+	}
+	
+	public void buttomLogout() {
+		btnLogin.setText("Salir");
+	}
+	
+	public void buttomLogin() {
+		lblUsuario.setText("");
+		btnLogin.setText("Ingresar");
+		usuario.logout();
 	}
 }

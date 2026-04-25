@@ -14,13 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.proyecto.modelo.Usuario;
+
 public class Login extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    // Credenciales del usuario
-    private static final String USUARIO_VALIDO = "usuario";
-    private static final String PASSWORD_VALIDA = "1234";
 
     private JPanel contentPane;
     private JTextField userTxtF;
@@ -32,18 +31,13 @@ public class Login extends JFrame {
     private JLabel passwordLbl;
     private JLabel errorLbl;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Login frame = new Login();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+	/*
+	 * public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
+	 * Login frame = new Login(); frame.setVisible(true); } catch (Exception e) {
+	 * e.printStackTrace(); } }); }
+	 */
 
-    public Login() {
+    public Login(InicioCartelera ventanaCartelera, Usuario usuarioBD) {
         setTitle("Iniciar sesión");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(398, 408);
@@ -104,7 +98,7 @@ public class Login extends JFrame {
             javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
         // También ingresar con Enter desde el campo password
-        passwordTxtF.addActionListener(e -> validarLogin());
+        passwordTxtF.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
         contentPane.add(passwordTxtF);
 
         // Label error (oculto por defecto)
@@ -124,25 +118,23 @@ public class Login extends JFrame {
         ingresarBtn.setFocusPainted(false);
         ingresarBtn.setBorder(null);
         ingresarBtn.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
-        ingresarBtn.addActionListener(e -> validarLogin());
+        ingresarBtn.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
         contentPane.add(ingresarBtn);
     }
 
-    private void validarLogin() {
+    private void validarLogin(Usuario usuarioBD, InicioCartelera ventanaCartelera) {
         String usuario = userTxtF.getText().trim();
         String password = new String(passwordTxtF.getPassword()).trim();
 
         if (usuario.isEmpty() || password.isEmpty()) {
-            errorLbl.setText("Por favor completa todos los campos.");
+            errorLbl.setText("Por favor completa todos los campos.");            
             return;
         }
 
-        if (usuario.equals(USUARIO_VALIDO) && password.equals(PASSWORD_VALIDA)) {
+        if (usuarioBD.esUsuarioValido(usuario, password)) {
             // Login exitoso → abre cartelera y cierra login
-            InicioCartelera cartelera = new InicioCartelera();
-            cartelera.setSize(800, 720);
-            cartelera.setLocationRelativeTo(null);
-            cartelera.setVisible(true);
+        	ventanaCartelera.usuarioLogueado();
+        	ventanaCartelera.buttomLogout();
             dispose();
         } else {
             errorLbl.setText("Usuario o contraseña incorrectos.");
