@@ -28,6 +28,8 @@ import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class SelectorFuncion extends JFrame {
 
@@ -42,6 +44,8 @@ public class SelectorFuncion extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblUsuario;
+	private JLabel lblNewLabel_3;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -104,6 +108,17 @@ public class SelectorFuncion extends JFrame {
 		lblNewLabel_2.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblNewLabel_2.setBounds(260, 75, 204, 41);
 		panel_1.add(lblNewLabel_2);
+		
+		lblNewLabel_3 = new JLabel("NroAsientos");
+		lblNewLabel_3.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setBounds(295, 387, 88, 31);
+		panel_1.add(lblNewLabel_3);
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
+		comboBox.setBounds(295, 429, 96, 22);
+		panel_1.add(comboBox);
 
 		lblNewLabel = new JLabel("Horarios");
 		lblNewLabel.setForeground(Color.WHITE);
@@ -129,11 +144,11 @@ public class SelectorFuncion extends JFrame {
 	private void generarHorarios(Cartelera pelicula, Usuario usuario) {
 		for (var horario : pelicula.funciones) {
 			
-			panel.add(crearTarjetaHorario(usuario, horario));
+			panel.add(crearTarjetaHorario(usuario, horario, pelicula));
 		}
 	}
 
-	private JPanel crearTarjetaHorario(Usuario usuario, Funcion horario) {
+	private JPanel crearTarjetaHorario(Usuario usuario, Funcion horario, Cartelera pelicula) {
 		
 		JPanel card = new JPanel();
 		card.setLayout(new BoxLayout(card, BoxLayout.X_AXIS));
@@ -161,12 +176,12 @@ public class SelectorFuncion extends JFrame {
 		card.add(hora);
 		card.add(Box.createVerticalGlue());
 
-		hora.addMouseListener(labelClick(horario, usuario));
+		hora.addMouseListener(labelClick(horario, usuario, pelicula));
 		
 		return card;
 	}
 
-	private MouseAdapter labelClick(Funcion horario, Usuario usuario) {
+	private MouseAdapter labelClick(Funcion horario, Usuario usuario, Cartelera pelicula) {
 		return new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -174,7 +189,7 @@ public class SelectorFuncion extends JFrame {
 				if (usuario.getUsuarioLogueado().equals("")) {
 					mensajeCompra();
 				} else {
-					abrirSelectorAsientos();
+					abrirSelectorAsientos(usuario, comboBox.getSelectedItem().toString(), horario, pelicula);
 				}
 			}
 		};
@@ -187,8 +202,11 @@ public class SelectorFuncion extends JFrame {
 		return imageScale;
 	}
 
-	public void abrirSelectorAsientos() {
-		SelectorAsientos asiento = new SelectorAsientos();
+	public void abrirSelectorAsientos(Usuario usuario, String nroAsiento,Funcion horario, Cartelera pelicula) {
+		
+		int asientoContador = Integer.parseInt(nroAsiento); 
+		
+		SelectorAsientos asiento = new SelectorAsientos(usuario, asientoContador, horario, pelicula);
 		asiento.setSize(800, 720);
 		asiento.setLocationRelativeTo(null);
 		asiento.setVisible(true);

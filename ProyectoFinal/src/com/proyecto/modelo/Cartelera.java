@@ -25,9 +25,9 @@ public class Cartelera {
 		ArrayList<Cartelera> peliculas = new ArrayList<>();
 		
 		Sala sala1 = Sala.crearSalaSimple("Sala 1", 5, 6);
-	    Sala sala2 = Sala.crearSalaConPasillo("Sala 2", 7, 8);
+	    Sala sala2 = Sala.crearSalaConPasillo("Sala 2", 5, 8);
 	    Sala sala3 = Sala.crearSalaSimple("Sala SD", 5, 8);
-	    Sala salaXD = Sala.crearSalaDoblePasillo("Sala XD", 10, 20);
+	    Sala salaXD = Sala.crearSalaDoblePasillo("Sala XD", 5, 10);
 		
 	    
 	    Cartelera peli1 = new Cartelera("<html><div style='text-align:center;'>PROYECTO FIN DEL<br> MUNDO</div><html>",
