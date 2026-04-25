@@ -18,18 +18,17 @@ import com.proyecto.modelo.Usuario;
 
 public class Login extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-
-    private JPanel contentPane;
-    private JTextField userTxtF;
-    private JPasswordField passwordTxtF;
-    private JButton ingresarBtn;
-    private JLabel tituloLbl;
-    private JLabel subtituloLbl;
-    private JLabel userLbl;
-    private JLabel passwordLbl;
-    private JLabel errorLbl;
+	private JPanel contentPane;
+	private JTextField userTxtF;
+	private JPasswordField passwordTxtF;
+	private JButton ingresarBtn;
+	private JLabel tituloLbl;
+	private JLabel subtituloLbl;
+	private JLabel userLbl;
+	private JLabel passwordLbl;
+	private JLabel errorLbl;
 
 	/*
 	 * public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
@@ -37,108 +36,110 @@ public class Login extends JFrame {
 	 * e.printStackTrace(); } }); }
 	 */
 
-    public Login(InicioCartelera ventanaCartelera, Usuario usuarioBD) {
-        setTitle("Iniciar sesión");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(398, 408);
-        setLocationRelativeTo(null);
-        setResizable(false);
+	public Login(InicioCartelera ventanaCartelera, Usuario usuarioBD) {
+		cardLoginInicio(ventanaCartelera, usuarioBD);
+	}
 
-        contentPane = new JPanel();
-        contentPane.setBackground(new Color(30, 30, 30));
-        contentPane.setBorder(new EmptyBorder(20, 40, 20, 40));
-        contentPane.setLayout(null);
-        setContentPane(contentPane);
+	private void cardLoginInicio(InicioCartelera ventanaCartelera, Usuario usuarioBD) {
+		setTitle("Iniciar sesión");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(398, 408);
+		setLocationRelativeTo(null);
+		setResizable(false);
 
-        // Título
-        tituloLbl = new JLabel("CINEMARK");
-        tituloLbl.setFont(new Font("Segoe UI", Font.BOLD, 36));
-        tituloLbl.setForeground(new Color(255, 128, 0));
-        tituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        tituloLbl.setBounds(0, 30, 400, 50);
-        contentPane.add(tituloLbl);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(30, 30, 30));
+		contentPane.setBorder(new EmptyBorder(20, 40, 20, 40));
+		contentPane.setLayout(null);
+		setContentPane(contentPane);
 
-        subtituloLbl = new JLabel("Bienvenido, inicia sesión para continuar");
-        subtituloLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        subtituloLbl.setForeground(Color.LIGHT_GRAY);
-        subtituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        subtituloLbl.setBounds(0, 85, 400, 20);
-        contentPane.add(subtituloLbl);
+		// Título
+		tituloLbl = new JLabel("CINEMARK");
+		tituloLbl.setFont(new Font("Segoe UI", Font.BOLD, 36));
+		tituloLbl.setForeground(new Color(255, 128, 0));
+		tituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		tituloLbl.setBounds(0, 30, 400, 50);
+		contentPane.add(tituloLbl);
 
-        // Label usuario
-        userLbl = new JLabel("Usuario");
-        userLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        userLbl.setForeground(Color.WHITE);
-        userLbl.setBounds(40, 130, 100, 20);
-        contentPane.add(userLbl);
+		subtituloLbl = new JLabel("Bienvenido, inicia sesión para continuar");
+		subtituloLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		subtituloLbl.setForeground(Color.LIGHT_GRAY);
+		subtituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		subtituloLbl.setBounds(0, 85, 400, 20);
+		contentPane.add(subtituloLbl);
 
-        // Campo usuario
-        userTxtF = new JTextField();
-        userTxtF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        userTxtF.setBounds(40, 152, 300, 38);
-        userTxtF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new Color(255, 128, 0)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        contentPane.add(userTxtF);
+		// Label usuario
+		userLbl = new JLabel("Usuario");
+		userLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		userLbl.setForeground(Color.WHITE);
+		userLbl.setBounds(40, 130, 100, 20);
+		contentPane.add(userLbl);
 
-        // Label password
-        passwordLbl = new JLabel("Contraseña");
-        passwordLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        passwordLbl.setForeground(Color.WHITE);
-        passwordLbl.setBounds(40, 205, 100, 20);
-        contentPane.add(passwordLbl);
+		// Campo usuario
+		userTxtF = new JTextField();
+		userTxtF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		userTxtF.setBounds(40, 152, 300, 38);
+		userTxtF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+				javax.swing.BorderFactory.createLineBorder(new Color(255, 128, 0)),
+				javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+		contentPane.add(userTxtF);
 
-        // Campo password
-        passwordTxtF = new JPasswordField();
-        passwordTxtF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        passwordTxtF.setBounds(40, 227, 300, 38);
-        passwordTxtF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new Color(255, 128, 0)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-        // También ingresar con Enter desde el campo password
-        passwordTxtF.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
-        contentPane.add(passwordTxtF);
+		// Label password
+		passwordLbl = new JLabel("Contraseña");
+		passwordLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		passwordLbl.setForeground(Color.WHITE);
+		passwordLbl.setBounds(40, 205, 100, 20);
+		contentPane.add(passwordLbl);
 
-        // Label error (oculto por defecto)
-        errorLbl = new JLabel("");
-        errorLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        errorLbl.setForeground(new Color(220, 50, 50));
-        errorLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        errorLbl.setBounds(0, 272, 400, 20);
-        contentPane.add(errorLbl);
+		// Campo password
+		passwordTxtF = new JPasswordField();
+		passwordTxtF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		passwordTxtF.setBounds(40, 227, 300, 38);
+		passwordTxtF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+				javax.swing.BorderFactory.createLineBorder(new Color(255, 128, 0)),
+				javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+		// También ingresar con Enter desde el campo password
+		passwordTxtF.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
+		contentPane.add(passwordTxtF);
 
-        // Botón ingresar
-        ingresarBtn = new JButton("INGRESAR");
-        ingresarBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        ingresarBtn.setBackground(new Color(255, 128, 0));
-        ingresarBtn.setForeground(Color.WHITE);
-        ingresarBtn.setBounds(40, 298, 300, 42);
-        ingresarBtn.setFocusPainted(false);
-        ingresarBtn.setBorder(null);
-        ingresarBtn.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
-        ingresarBtn.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
-        contentPane.add(ingresarBtn);
-    }
+		// Label error (oculto por defecto)
+		errorLbl = new JLabel("");
+		errorLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		errorLbl.setForeground(new Color(220, 50, 50));
+		errorLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLbl.setBounds(0, 272, 400, 20);
+		contentPane.add(errorLbl);
 
-    private void validarLogin(Usuario usuarioBD, InicioCartelera ventanaCartelera) {
-        String usuario = userTxtF.getText().trim();
-        String password = new String(passwordTxtF.getPassword()).trim();
+		// Botón ingresar
+		ingresarBtn = new JButton("INGRESAR");
+		ingresarBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ingresarBtn.setBackground(new Color(255, 128, 0));
+		ingresarBtn.setForeground(Color.WHITE);
+		ingresarBtn.setBounds(40, 298, 300, 42);
+		ingresarBtn.setFocusPainted(false);
+		ingresarBtn.setBorder(null);
+		ingresarBtn.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+		ingresarBtn.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
+		contentPane.add(ingresarBtn);
+	}
 
-        if (usuario.isEmpty() || password.isEmpty()) {
-            errorLbl.setText("Por favor completa todos los campos.");            
-            return;
-        }
+	private void validarLogin(Usuario usuarioBD, InicioCartelera ventanaCartelera) {
+		String usuario = userTxtF.getText().trim();
+		String password = new String(passwordTxtF.getPassword()).trim();
 
-        if (usuarioBD.esUsuarioValido(usuario, password)) {
-            // Login exitoso → abre cartelera y cierra login
-        	ventanaCartelera.usuarioLogueado();
-        	ventanaCartelera.buttomLogout();
-            dispose();
-        } else {
-            errorLbl.setText("Usuario o contraseña incorrectos.");
-            passwordTxtF.setText("");
-        }
-    }
+		if (usuario.isEmpty() || password.isEmpty()) {
+			errorLbl.setText("Por favor completa todos los campos.");
+			return;
+		}
+
+		if (usuarioBD.esUsuarioValido(usuario, password)) {
+			// Login exitoso → abre cartelera y cierra login
+			ventanaCartelera.usuarioLogueado();
+			ventanaCartelera.buttomLogout();
+			dispose();
+		} else {
+			errorLbl.setText("Usuario o contraseña incorrectos.");
+			passwordTxtF.setText("");
+		}
+	}
 }

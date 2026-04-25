@@ -167,7 +167,7 @@ public class InicioCartelera extends JFrame implements ActionListener {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SelectorFuncion funcion = new SelectorFuncion(pelicula);
+				SelectorFuncion funcion = new SelectorFuncion(pelicula, usuario);
 				funcion.setSize(800, 720);
 				funcion.setLocationRelativeTo(null);
 				funcion.setVisible(true);
@@ -185,6 +185,7 @@ public class InicioCartelera extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnLogin(ActionEvent e) {
+		
 		Login login = new Login(this, usuario);
 
 		if (btnLogin.getText().equals("Salir")) {
