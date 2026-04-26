@@ -40,6 +40,9 @@ public class SelectorAlimentos extends JFrame {
 	ArrayList<Alimento> bebidas;
 	private JScrollPane scrollPane;
 	private JPanel panelCombo;
+	private JPanel panelSnacks; 
+    private JPanel panelBebidas;
+	
 	private JButton btnComprar;
 	private JScrollPane scrollPane_1;
 	private JPanel panel;
@@ -85,9 +88,15 @@ public class SelectorAlimentos extends JFrame {
 		panelCombo = new JPanel();
 		panelCombo.setBackground(Color.DARK_GRAY);
 		panelCombo.setBorder(null);
-
-
 		panelCombo.setLayout(new GridLayout(0, 3, 5, 5));
+		
+		panelSnacks = new JPanel();
+		panelSnacks.setBackground(Color.DARK_GRAY);
+		panelSnacks.setLayout(new GridLayout(0, 3, 5, 5));
+
+		panelBebidas = new JPanel();
+		panelBebidas.setBackground(Color.DARK_GRAY);
+		panelBebidas.setLayout(new GridLayout(0, 3, 5, 5));
 
 
 		lblAlimentos = new JLabel("  ALIMENTOS");
@@ -97,17 +106,44 @@ public class SelectorAlimentos extends JFrame {
 		lblAlimentos.setBounds(0, 0, 784, 63);
 		contentPane.add(lblAlimentos);
 
+		
+		cargarCombos();
+	    cargarSnacks();
 		cargarBebidas();
+	
 		
 		panelCombo.setPreferredSize(new Dimension(585, 720));
 		panelCombo.revalidate();
 		panelCombo.repaint();
 		
-		JScrollPane scrollPane = new JScrollPane(panelCombo);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		panelSnacks.setPreferredSize(new Dimension(585, 720));
+	    panelSnacks.revalidate();
+	    panelSnacks.repaint();
+
+	    panelBebidas.setPreferredSize(new Dimension(585, 720));
+	    panelBebidas.revalidate();
+	    panelBebidas.repaint();
+	 
+	   
+
+		
+	    JScrollPane scrollPane = new JScrollPane(panelCombo);
+	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    
+	    JScrollPane scrollSnacks = new JScrollPane(panelSnacks);
+	    scrollSnacks.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+	    scrollSnacks.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
+	    
+	    JScrollPane scrollBebidas = new JScrollPane(panelBebidas);
+	    scrollBebidas.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+	    scrollBebidas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
+  
 
         tabbedPane.addTab("Combos", null, scrollPane, null);
+        tabbedPane.addTab("Snacks", null, scrollSnacks, null);
+        tabbedPane.addTab("Bebidas", null, scrollBebidas, null);
         contentPane.add(tabbedPane);
         
         btnComprar = new JButton("COMPRAR");
@@ -133,12 +169,30 @@ public class SelectorAlimentos extends JFrame {
         contentPane.add(lblNewLabel);
 	}
 
-	public void cargarBebidas() {
+	public void cargarCombos() {
 		for (var combo : combos) {
 			panelCombo.add(cardAlimento(combo));
 		}
 	}
 
+
+
+	
+	public void cargarSnacks() {
+	    for (var snack : snacks) {
+	        panelSnacks.add(cardAlimento(snack));
+	    }
+	}
+
+	
+	public void cargarBebidas() {
+	    for (var bebida : bebidas) {
+	        panelBebidas.add(cardAlimento(bebida));
+	    }
+	}
+	
+	
+	
 	public JPanel cardAlimento(Alimento alimento) {
 		JPanel card = new JPanel();
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
