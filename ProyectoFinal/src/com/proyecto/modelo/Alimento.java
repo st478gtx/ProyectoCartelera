@@ -19,6 +19,7 @@ public class Alimento {
 		combos.add(new Alimento("COMBO DUO", "74.80 COMBO DUO", "resources/alimentos/combos/15453-1765903024362.png", 0));
 		combos.add(new Alimento("COMBO TRIO", "3 Popcorn grande + 3 gaseosas", "resources/alimentos/combos/14588-1752610832530.png", 89.90));
         combos.add(new Alimento("COMBO FRANKFURTER", "Frankfurter + gaseosa mediana", "resources/alimentos/combos/528-1755100170631.png", 31.80));
+        combos.add(new Alimento("COMBO DUO", "74.80 COMBO DUO", "resources/alimentos/combos/15453-1765903024362.png", 0));
 		//TODO: Completar 5 más
 		return combos;
 	}

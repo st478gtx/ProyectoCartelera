@@ -116,14 +116,14 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		lblCabecera.setBounds(0, 0, 784, 63);
 		contentPane.add(lblCabecera);
 
+		cargarPeliculas();
+
+	}
+
+	private void cargarPeliculas() {
 		for (var pelicula : peliculas) {
 			panel_content.add(crearTarjeta(pelicula));
 		}
-
-		// if (usuario.getUsuarioLogueado() != "") {
-		// usuarioLogueado(usuario.getUsuarioLogueado());
-		// }
-
 	}
 
 	private JPanel crearTarjeta(Cartelera pelicula) {
