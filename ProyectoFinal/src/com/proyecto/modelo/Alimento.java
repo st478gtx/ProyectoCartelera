@@ -6,11 +6,13 @@ public class Alimento {
 	public String nombre;
 	public String descripcion;
 	public String ruta;
+	public double precio;
 
 	public Alimento(String nombre, String descripcion, String ruta, double d) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.ruta = ruta;
+		this.precio = d;
 	}
 	
 	public static ArrayList<Alimento> comboAlimento(){
