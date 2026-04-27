@@ -27,6 +27,9 @@ public class Cartelera {
 		Sala sala1 = Sala.crearSalaSimple("Sala 1", 5, 6);
 	    Sala sala2 = Sala.crearSalaConPasillo("Sala 2", 5, 8);
 	    Sala sala3 = Sala.crearSalaSimple("Sala SD", 5, 8);
+	    Sala sala4 = Sala.crearSalaConPasillo("Sala 3 3D", 5, 8);
+	    Sala sala5 = Sala.crearSalaConPasillo("Sala 4 3D", 5, 8);
+	    Sala sala6 = Sala.crearSalaConPasillo("Sala 5 3D", 5, 8);
 	    Sala salaXD = Sala.crearSalaDoblePasillo("Sala XD", 5, 10);
 		
 	    
@@ -60,7 +63,7 @@ public class Cartelera {
 		//MODIFICAR PELICULAS 3 - 6
 		
 		Cartelera peli3 = new Cartelera("<html><div style='text-align:center;'>MICHAEL</div><html>",
-				"<html><div>Película biográfica sobre el rey del pop, Michael Jackson. Retratará al cantante desde sus inicios hasta su trágico fallecimiento en 2009.</div></html>",
+				"<html><div style='text-align:justify;'>Película biográfica sobre el rey del pop, Michael Jackson. Retratará al cantante desde sus inicios hasta su trágico fallecimiento en 2009.</div></html>",
 				"resources/peliculas/HO00008584.jpg", "2h 10m");
 	    
 		peli3.tituloNormal = "MICHAEL";
@@ -71,33 +74,33 @@ public class Cartelera {
 		
 		peliculas.add(peli3);
 		
-		Cartelera peli4 = new Cartelera("<html><div style='text-align:center;'>CHAO LA SIRENA</div><html>",
-				"Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.",
-				"resources/peliculas/HO00009113.jpg", "1h 30m");
+		Cartelera peli4 = new Cartelera("<html><div style='text-align:center;'>MORTAL KOMBAT 2</div><html>",
+				"<html><div style='text-align:justify;'>Los guerreros más queridos, incluyendo a Johnny Cage, luchan juntos en un combate definitivo contra el malvado Shao Kahn, cuyo reino amenaza con destruir la Tierra y a quienes la protegen.</div></html>",
+				"resources/peliculas/HO00008691.jpg", "1h 56m");
 	    
-	    peli4.funciones.add(new Funcion(peli4, "16:00", sala1));
-	    peli4.funciones.add(new Funcion(peli4, "18:30", sala2));
-	    peli4.funciones.add(new Funcion(peli4, "21:00", salaXD));
+	    peli4.funciones.add(new Funcion(peli4, "17:00", sala4));
+	    peli4.funciones.add(new Funcion(peli4, "15:30", sala5));
+	    peli4.funciones.add(new Funcion(peli4, "19:00", sala6));
 		
 		peliculas.add(peli4);
 		
-		Cartelera peli5 = new Cartelera("<html><div style='text-align:center;'>CHAO LA SIRENA</div><html>",
-				"Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.",
-				"resources/peliculas/HO00009113.jpg", "1h 30m");
+		Cartelera peli5 = new Cartelera("<html><div style='text-align:center;'>JUGADA MAESTRA</div><html>",
+				"<html><div style='text-align:justify;'>Becket Redfellow, el heredero de una fortuna multimillonaria que no se detendrá ante nada para conseguir lo que se merece o lo que él cree que se merece.</div></html>",
+				"resources/peliculas/HO00008858.jpg", "1h 45m");
 	    
-	    peli5.funciones.add(new Funcion(peli5, "16:00", sala1));
-	    peli5.funciones.add(new Funcion(peli5, "18:30", sala2));
-	    peli5.funciones.add(new Funcion(peli5, "21:00", salaXD));
+	    peli5.funciones.add(new Funcion(peli5, "13:00", sala4));
+	    peli5.funciones.add(new Funcion(peli5, "13:30", sala5));
+	    peli5.funciones.add(new Funcion(peli5, "14:00", sala6));
 		
 		peliculas.add(peli5);
 		
-		Cartelera peli6 = new Cartelera("<html><div style='text-align:center;'>CHAO LA SIRENA</div><html>",
-				"Un astronauta intenta salvar la Tierra estando solo en el espacio exterior.",
-				"resources/peliculas/HO00009113.jpg", "1h 30m");
+		Cartelera peli6 = new Cartelera("<html><div style='text-align:center;'>BOULEVARD</div><html>",
+				"<html><div style='text-align:justify;'>Hasley, una chica con una lista de sueños sin cumplir, y Luke, un chico complejo y vulnerable marcado por un pasado trágico, encuentran en el boulevard un refugio donde descubrir si el amor puede vencerlo todo.</html>",
+				"resources/peliculas/HO00009005.jpg", "1h 54m");
 	    
-	    peli6.funciones.add(new Funcion(peli6, "16:00", sala1));
-	    peli6.funciones.add(new Funcion(peli6, "18:30", sala2));
-	    peli6.funciones.add(new Funcion(peli6, "21:00", salaXD));
+	    peli6.funciones.add(new Funcion(peli6, "21:00", sala4));
+	    peli6.funciones.add(new Funcion(peli6, "21:30", sala5));
+	    peli6.funciones.add(new Funcion(peli6, "22:00", sala6));
 		
 		peliculas.add(peli6);
 		
