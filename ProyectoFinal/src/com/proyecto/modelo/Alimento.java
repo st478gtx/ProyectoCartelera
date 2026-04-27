@@ -18,11 +18,11 @@ public class Alimento {
 	public static ArrayList<Alimento> comboAlimento(){
 		ArrayList<Alimento> combos = new ArrayList<>();
 		combos.add(new Alimento("COMBO DUO", "S/ 74.80 - 2 Popcorn grandes + 2 gaseosas", "resources/alimentos/combos/15453-1765903024362.png", 74.80));
-	    combos.add(new Alimento("COMBO TRIO", "S/ 97.70.90 - 3 Popcorn grandes + 3 gaseosas", "resources/alimentos/combos/14588-1752610832530.png", 89.90));
-	    combos.add(new Alimento("COMBO FRANKFURTER", "S/ 32.30 - Hot Dog + gaseosa mediana", "resources/alimentos/combos/528-1755100170631.png", 31.80));
-	 	combos.add(new Alimento("COMBO PERSONAL", "S/ 36.20 - 1 Canchita Mediana Salada + 1 Gaseosa Mediana", "resources/alimentos/combos/combo_personal", 74.80));
-	    combos.add(new Alimento("COMBO GIGANTE", "S/ 67.90 - 2 Gaseosas medianas + 1 Cancha gigante salada", "resources/alimentos/combos/combo_gigantee", 89.90));
-	    combos.add(new Alimento("COMBO PAREJA", "S/ 55.30 - 1 Canchita Grande Salada + 2 Gaseosas Medianas", "resources/alimentos/combos/combo_pareja", 31.80));
+	    combos.add(new Alimento("COMBO TRIO", "S/ 89.90 - 3 Popcorn grandes + 3 gaseosas", "resources/alimentos/combos/14588-1752610832530.png", 89.90));
+	    combos.add(new Alimento("COMBO FRANKFURTER", "S/ 31.80 - Hot Dog + gaseosa mediana", "resources/alimentos/combos/528-1755100170631.png", 31.80));
+	 	combos.add(new Alimento("COMBO PERSONAL", "S/ 36.20 - 1 Canchita Mediana Salada + 1 Gaseosa Mediana", "resources/alimentos/combos/combo_personal", 36.20));
+	    combos.add(new Alimento("COMBO GIGANTE", "S/ 67.90 - 2 Gaseosas medianas + 1 Cancha gigante salada", "resources/alimentos/combos/combo_gigantee", 67.90));
+	    combos.add(new Alimento("COMBO PAREJA", "S/ 55.30 - 1 Canchita Grande Salada + 2 Gaseosas Medianas", "resources/alimentos/combos/combo_pareja", 55.30));
        	
 		return combos;
 	}
