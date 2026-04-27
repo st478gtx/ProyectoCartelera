@@ -111,6 +111,27 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 		lblFuncionTitulo.setBounds(0, 598, 784, 63);
 		contentPane.add(lblFuncionTitulo);
 
+		crearAsientos(funcion);		
+
+		disposeAsientos();
+
+	}
+
+	private void disposeAsientos() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				resetAsientos();
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				resetAsientos();
+			}
+		});
+	}
+
+	private void crearAsientos(Funcion funcion) {
 		for (List<String> fila : funcion.sala.distribucion) {
 			for (String asientoId : fila) {
 
@@ -136,7 +157,7 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 				panel.add(btn);
 			}
 		}
-
+		
 		/*
 		 * for (var asiento : funcion.asientos.values()) { JCheckBox btn = new
 		 * JCheckBox(asiento.id);
@@ -149,19 +170,6 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 		 * 
 		 * panel.add(btn); }
 		 */
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				resetAsientos();
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				resetAsientos();
-			}
-		});
-
 	}
 
 	private void manejarSeleccion(ActionEvent e, String asientoId) {
