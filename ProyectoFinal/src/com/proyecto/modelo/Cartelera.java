@@ -78,6 +78,7 @@ public class Cartelera {
 				"<html><div style='text-align:justify;'>Los guerreros más queridos, incluyendo a Johnny Cage, luchan juntos en un combate definitivo contra el malvado Shao Kahn, cuyo reino amenaza con destruir la Tierra y a quienes la protegen.</div></html>",
 				"resources/peliculas/HO00008691.jpg", "1h 56m");
 	    
+		peli4.tituloNormal = "MORTAL KOMBAT 2";
 	    peli4.funciones.add(new Funcion(peli4, "17:00", sala4));
 	    peli4.funciones.add(new Funcion(peli4, "15:30", sala5));
 	    peli4.funciones.add(new Funcion(peli4, "19:00", sala6));
@@ -88,6 +89,7 @@ public class Cartelera {
 				"<html><div style='text-align:justify;'>Becket Redfellow, el heredero de una fortuna multimillonaria que no se detendrá ante nada para conseguir lo que se merece o lo que él cree que se merece.</div></html>",
 				"resources/peliculas/HO00008858.jpg", "1h 45m");
 	    
+		peli5.tituloNormal = "JUGADA MAESTRA";
 	    peli5.funciones.add(new Funcion(peli5, "13:00", sala4));
 	    peli5.funciones.add(new Funcion(peli5, "13:30", sala5));
 	    peli5.funciones.add(new Funcion(peli5, "14:00", sala6));
@@ -98,6 +100,7 @@ public class Cartelera {
 				"<html><div style='text-align:justify;'>Hasley, una chica con una lista de sueños sin cumplir, y Luke, un chico complejo y vulnerable marcado por un pasado trágico, encuentran en el boulevard un refugio donde descubrir si el amor puede vencerlo todo.</html>",
 				"resources/peliculas/HO00009005.jpg", "1h 54m");
 	    
+		peli6.tituloNormal = "BOULEVARD";
 	    peli6.funciones.add(new Funcion(peli6, "21:00", sala4));
 	    peli6.funciones.add(new Funcion(peli6, "21:30", sala5));
 	    peli6.funciones.add(new Funcion(peli6, "22:00", sala6));

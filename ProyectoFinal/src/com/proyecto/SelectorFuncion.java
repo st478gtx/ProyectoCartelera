@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.proyecto.modelo.BoletaCompra;
 import com.proyecto.modelo.Cartelera;
 import com.proyecto.modelo.Funcion;
 import com.proyecto.modelo.Usuario;
@@ -202,11 +203,11 @@ public class SelectorFuncion extends JFrame {
 		return imageScale;
 	}
 
-	public void abrirSelectorAsientos(Usuario usuario, String nroAsiento,Funcion horario, Cartelera pelicula) {
+	public void abrirSelectorAsientos(Usuario usuario, String nroAsiento,Funcion funcion, Cartelera pelicula) {
 		
-		int asientoContador = Integer.parseInt(nroAsiento); 
+		int asientoContador = Integer.parseInt(nroAsiento);	
 		
-		SelectorAsientos asiento = new SelectorAsientos(usuario, asientoContador, horario, pelicula);
+		SelectorAsientos asiento = new SelectorAsientos(usuario, asientoContador, funcion, pelicula);
 		asiento.setSize(800, 720);
 		asiento.setLocationRelativeTo(null);
 		asiento.setVisible(true);

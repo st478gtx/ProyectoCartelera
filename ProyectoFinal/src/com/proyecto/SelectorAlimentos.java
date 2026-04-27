@@ -7,8 +7,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import com.proyecto.modelo.Alimento;
+import com.proyecto.modelo.BoletaCompra;
+
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.JButton;
@@ -34,16 +36,14 @@ public class SelectorAlimentos extends JFrame {
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
     private JLabel lblAlimentos;
-    private String peliculaNombre;
-    private String horario;
-    private String sala;
+    
+    private BoletaCompra boletaActual;
 
     ArrayList<Alimento> combos;
     ArrayList<Alimento> snacks;
     ArrayList<Alimento> bebidas;
 
     Map<Alimento, Integer> agregados;
-    private ArrayList<String> asientosSeleccionados;
 
     private JPanel panelCombo;
     private JPanel panelSnacks;
@@ -55,29 +55,19 @@ public class SelectorAlimentos extends JFrame {
     private JLabel lblNewLabel;
     private JLabel lblContadorAgregado;
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                	SelectorAlimentos frame = new SelectorAlimentos(new ArrayList<>(), "", "", "");
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	/*
+	 * public static void main(String[] args) { try {
+	 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } catch
+	 * (Throwable e) { e.printStackTrace(); } EventQueue.invokeLater(new Runnable()
+	 * { public void run() { try { SelectorAlimentos frame = new
+	 * SelectorAlimentos(new ArrayList<>(), "", "", ""); frame.setVisible(true); }
+	 * catch (Exception e) { e.printStackTrace(); } } }); }
+	 */
 
-    public SelectorAlimentos(ArrayList<String> asientos, String pelicula, String horario, String sala) {
-        this.asientosSeleccionados = asientos;
-        this.peliculaNombre = pelicula;
-        this.horario = horario;
-        this.sala = sala;
+    public SelectorAlimentos(BoletaCompra boleta) {
+    	
+    	this.boletaActual = boleta;
+    	
         combos = Alimento.comboAlimento();
         snacks = Alimento.comboSnacks();
         bebidas = Alimento.comboBebidas();
@@ -174,7 +164,7 @@ public class SelectorAlimentos extends JFrame {
         disposeAlimentos();
     }
 
-    private void disposeAlimentos() {
+	private void disposeAlimentos() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -279,47 +269,55 @@ public class SelectorAlimentos extends JFrame {
             Alimento alimento = entry.getKey();
             int cantidad = entry.getValue();
 
-            JPanel card = new JPanel();
-            card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-            card.setPreferredSize(new Dimension(100, 200));
-            card.setBackground(new Color(40, 40, 40));
-            card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-            ImageIcon original = new ImageIcon(alimento.ruta);
-            Image scale = original.getImage().getScaledInstance(90, 110, Image.SCALE_SMOOTH);
-            JLabel img = new JLabel(new ImageIcon(scale));
-            img.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JLabel lblCantidad = new JLabel("x" + cantidad);
-            lblCantidad.setForeground(Color.ORANGE);
-            lblCantidad.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            lblCantidad.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JButton quitar = new JButton("- Quitar");
-            quitar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-            quitar.setFocusPainted(false);
-            quitar.setBorder(null);
-            quitar.setBackground(Color.ORANGE);
-            quitar.setAlignmentX(Component.CENTER_ALIGNMENT);
-            quitar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            quitar.addActionListener(e -> removerAlimento(alimento));
-
-            card.add(Box.createVerticalGlue());
-            card.add(img);
-            card.add(Box.createVerticalStrut(5));
-            card.add(lblCantidad);
-            card.add(Box.createVerticalStrut(5));
-            card.add(quitar);
-            card.add(Box.createVerticalGlue());
-
-            panelAgregado.add(card);
+            cardAgregado(alimento, cantidad);
         }
 
         updateAgregados();
     }
 
-    public void updateAgregados() {
+	private void cardAgregado(Alimento alimento, int cantidad) {
+		JPanel card = new JPanel();
+		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+		card.setPreferredSize(new Dimension(100, 200));
+		card.setBackground(new Color(40, 40, 40));
+		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		ImageIcon original = new ImageIcon(alimento.ruta);
+		Image scale = original.getImage().getScaledInstance(90, 110, Image.SCALE_SMOOTH);
+		JLabel img = new JLabel(new ImageIcon(scale));
+		img.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		JLabel lblCantidad = new JLabel("x" + cantidad);
+		lblCantidad.setForeground(Color.ORANGE);
+		lblCantidad.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblCantidad.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		JButton quitar = new JButton("- Quitar");
+		quitar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		quitar.setFocusPainted(false);
+		quitar.setBorder(null);
+		quitar.setBackground(Color.ORANGE);
+		quitar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		quitar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		quitar.addActionListener(e -> removerAlimento(alimento));
+
+		card.add(Box.createVerticalGlue());
+		card.add(img);
+		card.add(Box.createVerticalStrut(5));
+		card.add(lblCantidad);
+		card.add(Box.createVerticalStrut(5));
+		card.add(quitar);
+		card.add(Box.createVerticalGlue());
+
+		panelAgregado.add(card);
+	}
+
+    public void updateAgregados() {    	
+    	
         int total = agregados.values().stream().mapToInt(Integer::intValue).sum();
+        
+        
+        
         lblContadorAgregado.setText(total + "  ");
         panelAgregado.revalidate();
         panelAgregado.repaint();
@@ -327,13 +325,16 @@ public class SelectorAlimentos extends JFrame {
 
     private void irABoleta() {
         // TODO: conectar con asientos y pasar datos reales
-        if (agregados.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Debes agregar al menos un producto.",
-                "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        Boleta boleta = new Boleta(asientosSeleccionados, agregados, peliculaNombre, horario, sala);
+		/*
+		 * if (agregados.isEmpty()) { javax.swing.JOptionPane.showMessageDialog(this,
+		 * "Debes agregar al menos un producto.", "Aviso",
+		 * javax.swing.JOptionPane.WARNING_MESSAGE); return; }
+		 */
+    	BoletaCompra boletaActualizada = boletaActual;
+    	boletaActualizada.carrito = agregados;
+    	
+        Boleta boleta = new Boleta(boletaActualizada);
+        boleta.setSize(800, 720);
         boleta.setLocationRelativeTo(null);
         boleta.setVisible(true);
     }

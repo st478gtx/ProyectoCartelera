@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.proyecto.modelo.Alimento;
+import com.proyecto.modelo.BoletaCompra;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,8 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Boleta extends JFrame {
+public class Boleta extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,19 +56,13 @@ public class Boleta extends JFrame {
     private JSeparator sep5;
     private JLabel lblValorTotal;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-            	Boleta frame = new Boleta(new ArrayList<>(), new HashMap<>(), "", "", "");
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+	/*
+	 * public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
+	 * Boleta frame = new Boleta(new ArrayList<>(), new HashMap<>(), "", "", "");
+	 * frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }); }
+	 */
 
-    public Boleta(ArrayList<String> asientos, Map<Alimento, Integer> carrito,
-            String pelicula, String horario, String sala) {
+    public Boleta(BoletaCompra boleta) {
         setTitle("Boleta de compra");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(479, 611);
@@ -221,6 +219,7 @@ public class Boleta extends JFrame {
 
         // Botones
         btnAtras = new JButton("Atrás");
+        btnAtras.addActionListener(this);
         btnAtras.setBounds(40, 495, 89, 23);
         contentPane.add(btnAtras);
 
@@ -229,21 +228,20 @@ public class Boleta extends JFrame {
         btnConfirmar.setBounds(276, 493, 141, 27);
         contentPane.add(btnConfirmar);
         
-        cargarDatos(asientos, carrito, pelicula, horario, sala);
-    }
-    
-    private void cargarDatos(ArrayList<String> asientos, Map<Alimento, Integer> carrito,
-            String pelicula, String horario, String sala) {
+        cargarDatos(boleta);
+    }    
+
+	private void cargarDatos(BoletaCompra boleta) {
     	
     	// Película, horario, sala
-        proyeccionLbl.setText(pelicula);
-        horaLbl.setText(horario);
-        numSalaLbl.setText(sala);
+        proyeccionLbl.setText(boleta.pelicula.tituloNormal);
+        horaLbl.setText(boleta.funcion.hora);
+        numSalaLbl.setText(boleta.funcion.sala.nombre);
         
         // Asientos
-        asientosLbl.setText(String.join(", ", asientos));
-        entradasLbl.setText(asientos.size() + "  x  S/ 30.00  =  S/ " +
-            String.format("%.2f", asientos.size() * 30.00));
+        asientosLbl.setText(String.join(", ", boleta.boletos));
+        entradasLbl.setText(boleta.boletos.size() + "  x  S/ 30.00  =  S/ " +
+            String.format("%.2f", boleta.boletos.size() * 30.00));
 
         // Snacks dinámicos
         contentPane.remove(lblItem1);
@@ -253,14 +251,14 @@ public class Boleta extends JFrame {
 
         int y = 275;
         double totalSnacks = 0;
-        for (Map.Entry<Alimento, Integer> entry : carrito.entrySet()) {
+        for (Map.Entry<Alimento, Integer> entry : boleta.carrito.entrySet()) {
             Alimento alimento = entry.getKey();
             int cantidad = entry.getValue();
             double precioItem = alimento.precio * cantidad;
             totalSnacks += precioItem;
 
             JLabel lblItem = new JLabel(cantidad + "  x  " + alimento.nombre);
-            lblItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
+            lblItem.setFont(new Font("Segoe Ui", Font.PLAIN, 13));
             lblItem.setBounds(60, y, 200, 20);
             contentPane.add(lblItem);
 
@@ -273,12 +271,12 @@ public class Boleta extends JFrame {
         }
 
         // Totales
-        double subtotal = (asientos.size() * 30.00) + totalSnacks;
-        double descuento = calcularDescuento(asientos.size(), subtotal);
+        double subtotal = (boleta.boletos.size() * 30.00) + totalSnacks;
+        double descuento = calcularDescuento(boleta.boletos.size(), subtotal);
         double total = subtotal - descuento;
 
         lblValorSubtotal.setText("S/ " + String.format("%.2f", subtotal));
-        lblDescuento.setText("Descuento (" + calcularPorcentaje(asientos.size()) + "%):");
+        lblDescuento.setText("Descuento (" + calcularPorcentaje(boleta.boletos.size()) + "%):");
         lblValorDescuento.setText("- S/ " + String.format("%.2f", descuento));
         lblValorTotal.setText("S/ " + String.format("%.2f", total));
 
@@ -307,4 +305,12 @@ public class Boleta extends JFrame {
         else
         	return 15.0;
     }
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAtras) {
+			actionPerformedBtnAtras(e);
+		}
+	}
+	protected void actionPerformedBtnAtras(ActionEvent e) {
+		dispose();
+	}
 }

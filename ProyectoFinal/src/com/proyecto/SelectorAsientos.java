@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.Box;
 import javax.swing.JCheckBox;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.proyecto.modelo.Asiento;
+import com.proyecto.modelo.BoletaCompra;
 import com.proyecto.modelo.Cartelera;
 import com.proyecto.modelo.Funcion;
 import com.proyecto.modelo.Sala;
@@ -44,6 +46,8 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 
 	private Set<String> selectedAsientos = new LinkedHashSet<>(); // le quite el static, generaba un bug
 	ArrayList<JCheckBox> todosAsientos = new ArrayList<>();
+	private Usuario usuario;
+	
 	int limiteAsientos = 0;
 
 	/**
@@ -59,14 +63,14 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public SelectorAsientos(Usuario usuario, int nroAsiento, Funcion horario, Cartelera pelicula) {
-		setTitle(horario.sala.nombre);
+	public SelectorAsientos(Usuario usuario, int nroAsiento, Funcion funcion, Cartelera pelicula) {
+		setTitle(funcion.sala.nombre);
+		
+		this.usuario = usuario;
 
 		limiteAsientos = nroAsiento;
-		this.funcionActual = horario;
+		this.funcionActual = funcion;
 		this.peliculaActual = pelicula;
-
-		Funcion funcion = horario;
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 700);
@@ -235,12 +239,12 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	}
 
 	void irAlimentos() {
-	    SelectorAlimentos alimentos = new SelectorAlimentos(
-	            new ArrayList<>(selectedAsientos),
-	            peliculaActual.tituloNormal,
-	            funcionActual.hora,
-	            funcionActual.sala.nombre
-	        );
+		
+		Set<String> ordenAsientos = new TreeSet<>(selectedAsientos);
+		
+		BoletaCompra boleta = new BoletaCompra(usuario, peliculaActual, funcionActual, ordenAsientos);
+		
+	    SelectorAlimentos alimentos = new SelectorAlimentos(boleta);
 	        alimentos.setSize(800, 720);
 	        alimentos.setLocationRelativeTo(null);
 	        alimentos.setVisible(true);
@@ -258,6 +262,9 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 
 	private void resetAsientos() {
 		limiteAsientos = 0;
+		peliculaActual = null;
+		funcionActual = null;
+		usuario = null;
 		selectedAsientos.clear();
 		todosAsientos.clear();
 	}
