@@ -3,7 +3,10 @@ package com.proyecto;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import com.proyecto.modelo.Alimento;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,7 +55,7 @@ public class Boleta extends JFrame {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-                Boleta frame = new Boleta();
+            	Boleta frame = new Boleta(new ArrayList<>(), new HashMap<>(), "", "", "");
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -60,7 +63,8 @@ public class Boleta extends JFrame {
         });
     }
 
-    public Boleta() {
+    public Boleta(ArrayList<String> asientos, Map<Alimento, Integer> carrito,
+            String pelicula, String horario, String sala) {
         setTitle("Boleta de compra");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(479, 611);
@@ -90,7 +94,7 @@ public class Boleta extends JFrame {
         peliculaLbl.setBounds(40, 80, 100, 20);
         contentPane.add(peliculaLbl);
 
-        proyeccionLbl = new JLabel("Proyecto Fin del Mundo");
+        proyeccionLbl = new JLabel("");
         proyeccionLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
         proyeccionLbl.setBounds(160, 80, 262, 20);
         contentPane.add(proyeccionLbl);
@@ -100,7 +104,7 @@ public class Boleta extends JFrame {
         horarioLbl.setBounds(40, 110, 100, 20);
         contentPane.add(horarioLbl);
 
-        horaLbl = new JLabel("18:00 hrs");
+        horaLbl = new JLabel("");
         horaLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
         horaLbl.setBounds(160, 110, 200, 20);
         contentPane.add(horaLbl);
@@ -110,7 +114,7 @@ public class Boleta extends JFrame {
         salaLbl.setBounds(40, 135, 100, 20);
         contentPane.add(salaLbl);
 
-        numSalaLbl = new JLabel("1");
+        numSalaLbl = new JLabel("");
         numSalaLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
         numSalaLbl.setBounds(160, 135, 200, 20);
         contentPane.add(numSalaLbl);
@@ -152,22 +156,22 @@ public class Boleta extends JFrame {
         snacksLbl.setBounds(40, 250, 200, 20);
         contentPane.add(snacksLbl);
 
-        lblItem1 = new JLabel("1  x  Combo Duo");
+        lblItem1 = new JLabel("");
         lblItem1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblItem1.setBounds(60, 275, 180, 20);
         contentPane.add(lblItem1);
 
-        lblPrecioItem1 = new JLabel("S/ 74.40");
+        lblPrecioItem1 = new JLabel("");
         lblPrecioItem1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblPrecioItem1.setBounds(276, 275, 100, 20);
         contentPane.add(lblPrecioItem1);
 
-        lblItem2 = new JLabel("2  x  Popcorn Mediano");
+        lblItem2 = new JLabel("");
         lblItem2.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblItem2.setBounds(60, 300, 180, 20);
         contentPane.add(lblItem2);
 
-        lblPrecioItem2 = new JLabel("S/ 45.80");
+        lblPrecioItem2 = new JLabel("");
         lblPrecioItem2.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblPrecioItem2.setBounds(276, 300, 100, 20);
         contentPane.add(lblPrecioItem2);
@@ -224,5 +228,83 @@ public class Boleta extends JFrame {
         btnConfirmar.setForeground(new Color(0, 0, 0));
         btnConfirmar.setBounds(276, 493, 141, 27);
         contentPane.add(btnConfirmar);
+        
+        cargarDatos(asientos, carrito, pelicula, horario, sala);
+    }
+    
+    private void cargarDatos(ArrayList<String> asientos, Map<Alimento, Integer> carrito,
+            String pelicula, String horario, String sala) {
+    	
+    	// Película, horario, sala
+        proyeccionLbl.setText(pelicula);
+        horaLbl.setText(horario);
+        numSalaLbl.setText(sala);
+        
+        // Asientos
+        asientosLbl.setText(String.join(", ", asientos));
+        entradasLbl.setText(asientos.size() + "  x  S/ 30.00  =  S/ " +
+            String.format("%.2f", asientos.size() * 30.00));
+
+        // Snacks dinámicos
+        contentPane.remove(lblItem1);
+        contentPane.remove(lblItem2);
+        contentPane.remove(lblPrecioItem1);
+        contentPane.remove(lblPrecioItem2);
+
+        int y = 275;
+        double totalSnacks = 0;
+        for (Map.Entry<Alimento, Integer> entry : carrito.entrySet()) {
+            Alimento alimento = entry.getKey();
+            int cantidad = entry.getValue();
+            double precioItem = alimento.precio * cantidad;
+            totalSnacks += precioItem;
+
+            JLabel lblItem = new JLabel(cantidad + "  x  " + alimento.nombre);
+            lblItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
+            lblItem.setBounds(60, y, 200, 20);
+            contentPane.add(lblItem);
+
+            JLabel lblPrecio = new JLabel("S/ " + String.format("%.2f", precioItem));
+            lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+            lblPrecio.setBounds(276, y, 100, 20);
+            contentPane.add(lblPrecio);
+
+            y += 25;
+        }
+
+        // Totales
+        double subtotal = (asientos.size() * 30.00) + totalSnacks;
+        double descuento = calcularDescuento(asientos.size(), subtotal);
+        double total = subtotal - descuento;
+
+        lblValorSubtotal.setText("S/ " + String.format("%.2f", subtotal));
+        lblDescuento.setText("Descuento (" + calcularPorcentaje(asientos.size()) + "%):");
+        lblValorDescuento.setText("- S/ " + String.format("%.2f", descuento));
+        lblValorTotal.setText("S/ " + String.format("%.2f", total));
+
+        contentPane.revalidate();
+        contentPane.repaint();
+    }
+
+    private double calcularDescuento(int cantidad, double subtotal) {
+        if (cantidad == 1)
+        	return subtotal * 0.075;
+        else if (cantidad <= 5)
+        	return subtotal * 0.10;
+        else if (cantidad <= 10)
+        	return subtotal * 0.125;
+        else
+        	return subtotal * 0.15;
+    }
+
+    private double calcularPorcentaje(int cantidad) {
+        if (cantidad == 1)
+        	return 7.5;
+        else if (cantidad <= 5)
+        	return 10.0;
+        else if (cantidad <= 10)
+        	return 12.5;
+        else
+        	return 15.0;
     }
 }

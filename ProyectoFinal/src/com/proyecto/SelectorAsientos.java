@@ -39,8 +39,10 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	private JLabel lblFuncionTitulo;
 	private JButton btnContinuar;
 	private JLabel lblNewLabel_1;
+	private Funcion funcionActual;
+	private Cartelera peliculaActual;
 
-	private static Set<String> selectedAsientos = new LinkedHashSet<>();
+	private Set<String> selectedAsientos = new LinkedHashSet<>(); // le quite el static, generaba un bug
 	ArrayList<JCheckBox> todosAsientos = new ArrayList<>();
 	int limiteAsientos = 0;
 
@@ -61,6 +63,8 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 		setTitle(horario.sala.nombre);
 
 		limiteAsientos = nroAsiento;
+		this.funcionActual = horario;
+		this.peliculaActual = pelicula;
 
 		Funcion funcion = horario;
 
@@ -231,10 +235,15 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	}
 
 	void irAlimentos() {
-		SelectorAlimentos alimentos = new SelectorAlimentos();
-		alimentos.setSize(800, 720);
-		alimentos.setLocationRelativeTo(null);
-		alimentos.setVisible(true);
+	    SelectorAlimentos alimentos = new SelectorAlimentos(
+	            new ArrayList<>(selectedAsientos),
+	            peliculaActual.tituloNormal,
+	            funcionActual.hora,
+	            funcionActual.sala.nombre
+	        );
+	        alimentos.setSize(800, 720);
+	        alimentos.setLocationRelativeTo(null);
+	        alimentos.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
