@@ -117,7 +117,7 @@ public class SelectorFuncion extends JFrame {
 		panel_1.add(lblNewLabel_3);
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
 		comboBox.setBounds(295, 429, 96, 22);
 		panel_1.add(comboBox);
 
@@ -203,14 +203,12 @@ public class SelectorFuncion extends JFrame {
 		return imageScale;
 	}
 
-	public void abrirSelectorAsientos(Usuario usuario, String nroAsiento,Funcion funcion, Cartelera pelicula) {
-		
-		int asientoContador = Integer.parseInt(nroAsiento);	
-		
-		SelectorAsientos asiento = new SelectorAsientos(usuario, asientoContador, funcion, pelicula);
-		asiento.setSize(800, 720);
-		asiento.setLocationRelativeTo(null);
-		asiento.setVisible(true);
+	public void abrirSelectorAsientos(Usuario usuario, String nroAsiento, Funcion horario, Cartelera pelicula) {
+	    int asientoContador = Integer.parseInt(nroAsiento);
+	    SelectorAsientos asiento = new SelectorAsientos(usuario, asientoContador, horario, pelicula, this);
+	    asiento.setSize(800, 720);
+	    asiento.setLocationRelativeTo(null);
+	    asiento.setVisible(true);
 	}
 
 	public void usuarioLogueado(String usuario) {

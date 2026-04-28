@@ -70,7 +70,8 @@ public class InicioCartelera extends JFrame implements ActionListener {
 	public InicioCartelera() {
 
 		peliculas = Cartelera.listPeliculas();
-
+		
+		// Crea el usuario y carga los usuarios del sistema
 		usuario = new Usuario();
 		usuario.usuariosIniciales();
 
@@ -121,12 +122,16 @@ public class InicioCartelera extends JFrame implements ActionListener {
 	}
 
 	private void cargarPeliculas() {
-		for (var pelicula : peliculas) {
+		// Recorre la lista y crea una tarjeta visual por cada pelicula
+		for (int i = 0; i < peliculas.size(); i++) {
+			Cartelera pelicula = peliculas.get(i);
 			panel_content.add(crearTarjeta(pelicula));
 		}
 	}
 
 	private JPanel crearTarjeta(Cartelera pelicula) {
+
+		// Panel principal de la tarjeta
 		JPanel card = new JPanel();
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 		card.setPreferredSize(new Dimension(220, 390));
@@ -134,13 +139,13 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		// Imagen de la cartelera
+		// Carga y escala la imagen de la pelicula
 		ImageIcon original = new ImageIcon(pelicula.ruta);
 		Image scale = original.getImage().getScaledInstance(200, 280, Image.SCALE_SMOOTH);
 		JLabel img = new JLabel(new ImageIcon(scale));
 		img.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		// Titulo
+		// Label con el titulo de la pelicula
 		JLabel titulo = new JLabel(pelicula.titulo);
 		titulo.setForeground(Color.white);
 		titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -150,11 +155,12 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		// Duracion
+		// Label con la duracion de la pelicula
 		JLabel duracion = new JLabel(pelicula.duracion);
 		duracion.setForeground(Color.LIGHT_GRAY);
 		duracion.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		// Agrega los componentes a la tarjeta
 		card.add(Box.createVerticalGlue());
 		card.add(img);
 		card.add(Box.createVerticalStrut(10));
@@ -163,9 +169,9 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		card.add(duracion);
 		card.add(Box.createVerticalGlue());
 
+		// Evento: al hacer clic en la tarjeta abre la ventana de horarios
 		card.addMouseListener(new MouseAdapter() {
-
-			@Override
+			
 			public void mouseClicked(MouseEvent e) {
 				SelectorFuncion funcion = new SelectorFuncion(pelicula, usuario);
 				funcion.setSize(800, 720);
@@ -175,25 +181,25 @@ public class InicioCartelera extends JFrame implements ActionListener {
 		});
 
 		return card;
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		// Detecta cual boton fue presionado
 		if (e.getSource() == btnLogin) {
 			actionPerformedBtnLogin(e);
 		}
 	}
 
 	protected void actionPerformedBtnLogin(ActionEvent e) {
-		
+		// Crea la ventana de login pasando esta ventana y el usuario
 		Login login = new Login(this, usuario);
 
+		// Si ya esta logueado cierra sesion, si no abre el login
 		if (btnLogin.getText().equals("Salir")) {
 			buttomLogin();
 		} else {
 			login.setVisible(true);
 		}
-
 	}
 
 	public void usuarioLogueado() {
