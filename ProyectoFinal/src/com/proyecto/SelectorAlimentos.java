@@ -265,7 +265,7 @@ public class SelectorAlimentos extends JFrame {
     private void actualizarPanelAgregados() {
         panelAgregado.removeAll();
 
-        for (Map.Entry<Alimento, Integer> entry : agregados.entrySet()) {
+        for (var entry : agregados.entrySet()) {
             Alimento alimento = entry.getKey();
             int cantidad = entry.getValue();
 
@@ -314,8 +314,13 @@ public class SelectorAlimentos extends JFrame {
 
     public void updateAgregados() {    	
     	
-        int total = agregados.values().stream().mapToInt(Integer::intValue).sum();
+        //int total = agregados.values().stream().mapToInt(Integer::intValue).sum();
         
+        int total = 0;
+        
+        for(var agregado : agregados.values()) {
+        	total = total + agregado.intValue();
+        }
         
         
         lblContadorAgregado.setText(total + "  ");
