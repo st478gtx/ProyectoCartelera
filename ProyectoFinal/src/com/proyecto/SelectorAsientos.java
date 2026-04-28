@@ -43,7 +43,8 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_1;
 	private Funcion funcionActual;
 	private Cartelera peliculaActual;
-
+	private JFrame ventanaAnterior;
+	private Usuario usuarioActual;
 	private Set<String> selectedAsientos = new LinkedHashSet<>(); // le quite el static, generaba un bug
 	ArrayList<JCheckBox> todosAsientos = new ArrayList<>();
 	private Usuario usuario;
@@ -63,13 +64,16 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public SelectorAsientos(Usuario usuario, int nroAsiento, Funcion funcion, Cartelera pelicula) {
+	public SelectorAsientos(Usuario usuario, int nroAsiento, Funcion funcion, Cartelera pelicula, JFrame anterior) {
+	    this.ventanaAnterior = anterior;
+	    this.usuarioActual = usuario;
+	    anterior.setVisible(false);
 		setTitle(funcion.sala.nombre);
 		
 		this.usuario = usuario;
 
 		limiteAsientos = nroAsiento;
-		this.funcionActual = funcion;
+		this.funcionActual = funcion;	
 		this.peliculaActual = pelicula;
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -126,17 +130,17 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	}
 
 	private void disposeAsientos() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				resetAsientos();
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				resetAsientos();
-			}
-		});
+	    addWindowListener(new WindowAdapter() {
+	        
+	        public void windowClosing(WindowEvent e) {
+	            ventanaAnterior.setVisible(true); // reabre la anterior
+	            resetAsientos();
+	        }
+	        
+	        public void windowClosed(WindowEvent e) {
+	            resetAsientos();
+	        }
+	    });
 	}
 
 	private void crearAsientos(Funcion funcion) {
@@ -239,15 +243,16 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	}
 
 	void irAlimentos() {
-		
-		Set<String> ordenAsientos = new TreeSet<>(selectedAsientos);
-		
-		BoletaCompra boleta = new BoletaCompra(usuario, peliculaActual, funcionActual, ordenAsientos);
-		
-	    SelectorAlimentos alimentos = new SelectorAlimentos(boleta);
-	        alimentos.setSize(800, 720);
-	        alimentos.setLocationRelativeTo(null);
-	        alimentos.setVisible(true);
+	    BoletaCompra boleta = new BoletaCompra(
+	        usuarioActual,
+	        peliculaActual,
+	        funcionActual,
+	        selectedAsientos
+	    );
+	    SelectorAlimentos alimentos = new SelectorAlimentos(boleta, this);
+	    alimentos.setSize(800, 720);
+	    alimentos.setLocationRelativeTo(null);
+	    alimentos.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {

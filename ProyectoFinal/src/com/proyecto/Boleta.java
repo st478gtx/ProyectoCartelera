@@ -1,295 +1,284 @@
 package com.proyecto;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import com.proyecto.modelo.Alimento;
-import com.proyecto.modelo.BoletaCompra;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
+
+import com.proyecto.modelo.Alimento;
+import com.proyecto.modelo.BoletaCompra;
+
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Boleta extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
     private JPanel contentPane;
-
-    private JLabel tituloLbl;
+    private JPanel panelContenido;
+    private JFrame ventanaAnterior;
     private JLabel proyeccionLbl;
     private JLabel horaLbl;
     private JLabel numSalaLbl;
     private JLabel asientosLbl;
     private JLabel entradasLbl;
-    private JLabel snacksLbl;
-    private JLabel lblItem1;
-    private JLabel lblSubtotal;
+    private JLabel lblValorSubtotal;
     private JLabel lblDescuento;
-    private JLabel lblTotal;
-    private JLabel peliculaLbl;
-    private JLabel horarioLbl;
-    private JLabel salaLbl;
-    private JLabel tituloAsientosLbl;
-    private JLabel tituloEntradasLbl;
-    private JLabel lblPrecioItem1;
-    
-    private JSeparator sep1;
-    private JSeparator sep2;
-    private JSeparator sep3;
-    private JSeparator sep4;
+    private JLabel lblValorDescuento;
+    private JLabel lblValorTotal;
     private JButton btnAtras;
     private JButton btnConfirmar;
-    private JLabel lblItem2;
-    private JLabel lblPrecioItem2;
-    private JLabel lblValorSubtotal;
-    private JLabel lblValorDescuento;
-    private JSeparator sep5;
-    private JLabel lblValorTotal;
+    
+    
 
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
-	 * Boleta frame = new Boleta(new ArrayList<>(), new HashMap<>(), "", "", "");
-	 * frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }); }
-	 */
+    // Colores
+    private static final Color FONDO = new Color(30, 30, 30);
+    private static final Color PANEL = new Color(45, 45, 45);
+    private static final Color NARANJA = new Color(255, 128, 0);
+    private static final Color TEXTO = new Color(220, 220, 220);
+    private static final Color TEXTO_GRIS = new Color(150, 150, 150);
 
-    public Boleta(BoletaCompra boleta) {
+    public Boleta(BoletaCompra boleta, JFrame anterior) {
+    	// Guarda la ventana anterior para poder volver a ella
+        this.ventanaAnterior = anterior;
+        anterior.setVisible(false);
+        
+        //Configuracion de la ventana
         setTitle("Boleta de compra");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(479, 611);
+        setSize(489, 624);
         setLocationRelativeTo(null);
         setResizable(false);
 
         contentPane = new JPanel();
+        contentPane.setBackground(FONDO);
         contentPane.setLayout(null);
-        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         setContentPane(contentPane);
-        // Titulo
-        tituloLbl = new JLabel("BOLETA DE COMPRA");
-        tituloLbl.setFont(new Font("Tahoma", Font.BOLD, 24));
+
+        // Cabecera naranja
+        JPanel cabecera = new JPanel();
+        cabecera.setBackground(NARANJA);
+        cabecera.setLayout(null);
+        cabecera.setBounds(0, 0, 480, 55);
+        contentPane.add(cabecera);
+
+        JLabel tituloLbl = new JLabel("BOLETA DE COMPRA");
+        tituloLbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+        tituloLbl.setForeground(Color.WHITE);
         tituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        tituloLbl.setForeground(new Color(255, 128, 0));
-        tituloLbl.setBounds(0, 20, 468, 35);
-        contentPane.add(tituloLbl);
+        tituloLbl.setBounds(0, 0, 480, 55);
+        cabecera.add(tituloLbl);
 
-        sep1 = new JSeparator();
-        sep1.setForeground(new Color(0, 0, 0));
-        sep1.setBounds(40, 66, 382, 1);
-        contentPane.add(sep1);
+        // Panel con scroll para el contenido
+        panelContenido = new JPanel();
+        panelContenido.setBackground(PANEL);
+        panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
+        panelContenido.setBorder(new EmptyBorder(15, 20, 15, 20));
 
-        // Peli
-        peliculaLbl = new JLabel("Película:");
-        peliculaLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        peliculaLbl.setBounds(40, 80, 100, 20);
-        contentPane.add(peliculaLbl);
-
-        proyeccionLbl = new JLabel("");
-        proyeccionLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        proyeccionLbl.setBounds(160, 80, 262, 20);
-        contentPane.add(proyeccionLbl);
-
-        horarioLbl = new JLabel("Horario:");
-        horarioLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        horarioLbl.setBounds(40, 110, 100, 20);
-        contentPane.add(horarioLbl);
-
-        horaLbl = new JLabel("");
-        horaLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        horaLbl.setBounds(160, 110, 200, 20);
-        contentPane.add(horaLbl);
-
-        salaLbl = new JLabel("Sala:");
-        salaLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        salaLbl.setBounds(40, 135, 100, 20);
-        contentPane.add(salaLbl);
-
-        numSalaLbl = new JLabel("");
-        numSalaLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        numSalaLbl.setBounds(160, 135, 200, 20);
-        contentPane.add(numSalaLbl);
-
-        sep2 = new JSeparator();
-        sep2.setForeground(new Color(0, 0, 0));
-        sep2.setBounds(40, 168, 382, 2);
-        contentPane.add(sep2);
-
-        // Asientos
-        tituloAsientosLbl = new JLabel("Asientos:");
-        tituloAsientosLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        tituloAsientosLbl.setBounds(40, 180, 100, 20);
-        contentPane.add(tituloAsientosLbl);
-
-        asientosLbl = new JLabel("B4, C4, D4");
-        asientosLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        asientosLbl.setBounds(160, 180, 150, 20);
-        contentPane.add(asientosLbl);
-
-        tituloEntradasLbl = new JLabel("Entradas:");
-        tituloEntradasLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        tituloEntradasLbl.setBounds(40, 205, 100, 20);
-        contentPane.add(tituloEntradasLbl);
-
-        entradasLbl = new JLabel("3  x  S/ 30.00  =  S/ 90.00");
-        entradasLbl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        entradasLbl.setBounds(160, 205, 180, 20);
-        contentPane.add(entradasLbl);
-
-        sep3 = new JSeparator();
-        sep3.setForeground(new Color(0, 0, 0));
-        sep3.setBounds(40, 239, 382, 1);
-        contentPane.add(sep3);
-
-        // Snacks
-        snacksLbl = new JLabel("Snacks y Combos:");
-        snacksLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        snacksLbl.setBounds(40, 250, 200, 20);
-        contentPane.add(snacksLbl);
-
-        lblItem1 = new JLabel("");
-        lblItem1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblItem1.setBounds(60, 275, 180, 20);
-        contentPane.add(lblItem1);
-
-        lblPrecioItem1 = new JLabel("");
-        lblPrecioItem1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblPrecioItem1.setBounds(276, 275, 100, 20);
-        contentPane.add(lblPrecioItem1);
-
-        lblItem2 = new JLabel("");
-        lblItem2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblItem2.setBounds(60, 300, 180, 20);
-        contentPane.add(lblItem2);
-
-        lblPrecioItem2 = new JLabel("");
-        lblPrecioItem2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblPrecioItem2.setBounds(276, 300, 100, 20);
-        contentPane.add(lblPrecioItem2);
-
-        sep4 = new JSeparator();
-        sep4.setForeground(new Color(0, 0, 0));
-        sep4.setBounds(40, 341, 382, 1);
-        contentPane.add(sep4);
-
-        // Totales
-        lblSubtotal = new JLabel("Subtotal:");
-        lblSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblSubtotal.setBounds(40, 353, 200, 20);
-        contentPane.add(lblSubtotal);
-
-        lblValorSubtotal = new JLabel("S/ 210.20");
-        lblValorSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblValorSubtotal.setBounds(276, 353, 100, 20);
-        contentPane.add(lblValorSubtotal);
-
-        lblDescuento = new JLabel("Descuento (7.5%):");
-        lblDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblDescuento.setBounds(40, 384, 200, 20);
-        contentPane.add(lblDescuento);
-
-        lblValorDescuento = new JLabel("- S/ 15.76");
-        lblValorDescuento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblValorDescuento.setForeground(Color.RED);
-        lblValorDescuento.setBounds(276, 384, 100, 20);
-        contentPane.add(lblValorDescuento);
-
-        sep5 = new JSeparator();
-        sep5.setForeground(new Color(0, 0, 0));
-        sep5.setBounds(40, 426, 382, 1);
-        contentPane.add(sep5);
-
-        lblTotal = new JLabel("TOTAL A PAGAR:");
-        lblTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblTotal.setBounds(40, 438, 250, 25);
-        contentPane.add(lblTotal);
-
-        lblValorTotal = new JLabel("S/ 194.44");
-        lblValorTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblValorTotal.setForeground(new Color(255, 128, 0));
-        lblValorTotal.setBounds(276, 438, 146, 25);
-        contentPane.add(lblValorTotal);
+        JScrollPane scroll = new JScrollPane(panelContenido);
+        scroll.setBounds(20, 65, 435, 470);
+        scroll.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 60)));
+        scroll.getVerticalScrollBar().setUnitIncrement(10);
+        contentPane.add(scroll);
 
         // Botones
-        btnAtras = new JButton("Atrás");
+        btnAtras = new JButton("← Atrás");
+        btnAtras.setBounds(20, 545, 100, 28);
+        btnAtras.setBackground(new Color(70, 70, 70));
+        btnAtras.setForeground(TEXTO);
+        btnAtras.setFocusPainted(false);
+        btnAtras.setBorder(null);
         btnAtras.addActionListener(this);
-        btnAtras.setBounds(40, 495, 89, 23);
         contentPane.add(btnAtras);
 
-        btnConfirmar = new JButton("Confirmar compra");
-        btnConfirmar.setForeground(new Color(0, 0, 0));
-        btnConfirmar.setBounds(276, 493, 141, 27);
+        btnConfirmar = new JButton("Confirmar compra ✓");
+        btnConfirmar.setBounds(290, 543, 165, 30);
+        btnConfirmar.setBackground(NARANJA);
+        btnConfirmar.setForeground(Color.WHITE);
+        btnConfirmar.setFocusPainted(false);
+        btnConfirmar.setBorder(null);
         contentPane.add(btnConfirmar);
-        
+
         cargarDatos(boleta);
-    }    
+    }
 
-	private void cargarDatos(BoletaCompra boleta) {
-    	
-    	// Película, horario, sala
-        proyeccionLbl.setText(boleta.pelicula.tituloNormal);
-        horaLbl.setText(boleta.funcion.hora);
-        numSalaLbl.setText(boleta.funcion.sala.nombre);
-        
-        // Asientos
-        asientosLbl.setText(String.join(", ", boleta.boletos));
-        entradasLbl.setText(boleta.boletos.size() + "  x  S/ 30.00  =  S/ " +
+    private void cargarDatos(BoletaCompra boleta) {
+    	// Limpia el panel antes de cargar los datos
+        panelContenido.removeAll();
+
+        //Seccion pelicul
+        agregarTituloSeccion("PELÍCULA");
+        agregarFila("Película:", boleta.pelicula.tituloNormal);
+        agregarFila("Horario:", boleta.funcion.hora + " hrs");
+        agregarFila("Sala:", boleta.funcion.sala.nombre);
+        agregarSeparador();
+
+        // Seccion asientos
+        agregarTituloSeccion("ASIENTOS");
+        // Muestra todos los asientos en una línea, si son muchos se wrappea
+        JLabel lblAsientos = new JLabel(String.join(", ", boleta.boletos));
+        lblAsientos.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblAsientos.setForeground(TEXTO);
+        lblAsientos.setBorder(new EmptyBorder(2, 10, 2, 0));
+        panelContenido.add(lblAsientos);
+
+        agregarFila("Entradas:", boleta.boletos.size() + "  x  S/ 30.00  =  S/ " +
             String.format("%.2f", boleta.boletos.size() * 30.00));
+        agregarSeparador();
 
-        // Snacks dinámicos
-        contentPane.remove(lblItem1);
-        contentPane.remove(lblItem2);
-        contentPane.remove(lblPrecioItem1);
-        contentPane.remove(lblPrecioItem2);
+        //snacks
+        agregarTituloSeccion("SNACKS Y COMBOS");
 
-        int y = 275;
         double totalSnacks = 0;
         for (Map.Entry<Alimento, Integer> entry : boleta.carrito.entrySet()) {
             Alimento alimento = entry.getKey();
             int cantidad = entry.getValue();
             double precioItem = alimento.precio * cantidad;
             totalSnacks += precioItem;
-
-            JLabel lblItem = new JLabel(cantidad + "  x  " + alimento.nombre);
-            lblItem.setFont(new Font("Segoe Ui", Font.PLAIN, 13));
-            lblItem.setBounds(60, y, 200, 20);
-            contentPane.add(lblItem);
-
-            JLabel lblPrecio = new JLabel("S/ " + String.format("%.2f", precioItem));
-            lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 13));
-            lblPrecio.setBounds(276, y, 100, 20);
-            contentPane.add(lblPrecio);
-
-            y += 25;
+            agregarFilaItem(cantidad + "  x  " + alimento.nombre,
+                "S/ " + String.format("%.2f", precioItem));
+        }
+        //Si no agrego snacks muestra un mensaje
+        if (boleta.carrito.isEmpty()) {
+            JLabel sinSnacks = new JLabel("Sin snacks agregados");
+            sinSnacks.setFont(new Font("Tahoma", Font.ITALIC, 12));
+            sinSnacks.setForeground(TEXTO_GRIS);
+            sinSnacks.setBorder(new EmptyBorder(2, 10, 2, 0));
+            panelContenido.add(sinSnacks);
         }
 
-        // Totales
+        agregarSeparador();
+
+        //Calcula los totales
         double subtotal = (boleta.boletos.size() * 30.00) + totalSnacks;
         double descuento = calcularDescuento(boleta.boletos.size(), subtotal);
         double total = subtotal - descuento;
 
-        lblValorSubtotal.setText("S/ " + String.format("%.2f", subtotal));
-        lblDescuento.setText("Descuento (" + calcularPorcentaje(boleta.boletos.size()) + "%):");
-        lblValorDescuento.setText("- S/ " + String.format("%.2f", descuento));
-        lblValorTotal.setText("S/ " + String.format("%.2f", total));
+        agregarFilaItem("Subtotal:", "S/ " + String.format("%.2f", subtotal));
 
-        contentPane.revalidate();
-        contentPane.repaint();
+        // Fila del descuento en rojo
+        JPanel filaDesc = new JPanel(null);
+        filaDesc.setBackground(PANEL);
+        filaDesc.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
+
+        JLabel lblDesc = new JLabel("Descuento (" + calcularPorcentaje(boleta.boletos.size()) + "%):");
+        lblDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblDesc.setForeground(TEXTO_GRIS);
+        lblDesc.setBounds(10, 3, 220, 20);
+        filaDesc.add(lblDesc);
+
+        JLabel lblValDesc = new JLabel("- S/ " + String.format("%.2f", descuento));
+        lblValDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblValDesc.setForeground(new Color(220, 80, 80));
+        lblValDesc.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblValDesc.setBounds(220, 3, 170, 20);
+        filaDesc.add(lblValDesc);
+
+        panelContenido.add(filaDesc);
+
+        agregarSeparador();
+
+        //Fila del total final en naranja
+        JPanel filaTotal = new JPanel(null);
+        filaTotal.setBackground(PANEL);
+        filaTotal.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
+
+        JLabel lblTotalTxt = new JLabel("TOTAL A PAGAR:");
+        lblTotalTxt.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblTotalTxt.setForeground(TEXTO);
+        lblTotalTxt.setBounds(10, 3, 200, 25);
+        filaTotal.add(lblTotalTxt);
+
+        JLabel lblTotalVal = new JLabel("S/ " + String.format("%.2f", total));
+        lblTotalVal.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblTotalVal.setForeground(NARANJA);
+        lblTotalVal.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblTotalVal.setBounds(200, 3, 190, 25);
+        filaTotal.add(lblTotalVal);
+
+        panelContenido.add(filaTotal);
+
+        panelContenido.revalidate();
+        panelContenido.repaint();
+    }
+
+    // Agrega un título de sección naranja
+    private void agregarTituloSeccion(String texto) {
+        JLabel lbl = new JLabel(texto);
+        lbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lbl.setForeground(NARANJA);
+        lbl.setBorder(new EmptyBorder(8, 0, 4, 0));
+        panelContenido.add(lbl);
+    }
+
+    // Agrega una fila clave-valor
+    private void agregarFila(String clave, String valor) {
+        JPanel fila = new JPanel(null);
+        fila.setBackground(PANEL);
+        fila.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
+
+        JLabel lblClave = new JLabel(clave);
+        lblClave.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblClave.setForeground(TEXTO_GRIS);
+        lblClave.setBounds(0, 3, 120, 20);
+        fila.add(lblClave);
+
+        JLabel lblValor = new JLabel(valor);
+        lblValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblValor.setForeground(TEXTO);
+        lblValor.setBounds(125, 3, 265, 20);
+        fila.add(lblValor);
+
+        panelContenido.add(fila);
+    }
+
+    // Agrega una fila de item con precio alineado a la derecha
+    private void agregarFilaItem(String nombre, String precio) {
+        JPanel fila = new JPanel(null);
+        fila.setBackground(PANEL);
+        fila.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
+
+        JLabel lblNombre = new JLabel(nombre);
+        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNombre.setForeground(TEXTO);
+        lblNombre.setBounds(10, 3, 220, 20);
+        fila.add(lblNombre);
+
+        JLabel lblPrecio = new JLabel(precio);
+        lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblPrecio.setForeground(TEXTO);
+        lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblPrecio.setBounds(220, 3, 170, 20);
+        fila.add(lblPrecio);
+
+        panelContenido.add(fila);
+    }
+
+    // Agrega un separador
+    private void agregarSeparador() {
+        JSeparator sep = new JSeparator();
+        sep.setForeground(new Color(70, 70, 70));
+        sep.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 10));
+        panelContenido.add(sep);
     }
 
     private double calcularDescuento(int cantidad, double subtotal) {
         if (cantidad == 1)
         	return subtotal * 0.075;
-        else if (cantidad <= 5)
+        else if (cantidad <= 4)
         	return subtotal * 0.10;
-        else if (cantidad <= 10)
+        else if (cantidad <= 7)
         	return subtotal * 0.125;
         else
         	return subtotal * 0.15;
@@ -298,19 +287,22 @@ public class Boleta extends JFrame implements ActionListener {
     private double calcularPorcentaje(int cantidad) {
         if (cantidad == 1)
         	return 7.5;
-        else if (cantidad <= 5)
+        else if (cantidad <= 4)
         	return 10.0;
-        else if (cantidad <= 10)
+        else if (cantidad <= 7)
         	return 12.5;
         else
         	return 15.0;
     }
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAtras) {
-			actionPerformedBtnAtras(e);
-		}
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnAtras) {
+            actionPerformedBtnAtras(e);
+        }
+    }
+    
+    protected void actionPerformedBtnAtras(ActionEvent e) {
+        ventanaAnterior.setVisible(true);
+        dispose();
+    	}
 	}
-	protected void actionPerformedBtnAtras(ActionEvent e) {
-		dispose();
-	}
-}

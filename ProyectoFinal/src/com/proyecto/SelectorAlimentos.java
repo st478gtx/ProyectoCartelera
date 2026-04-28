@@ -36,7 +36,7 @@ public class SelectorAlimentos extends JFrame {
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
     private JLabel lblAlimentos;
-    
+    private JFrame ventanaAnterior;
     private BoletaCompra boletaActual;
 
     ArrayList<Alimento> combos;
@@ -64,9 +64,12 @@ public class SelectorAlimentos extends JFrame {
 	 * catch (Exception e) { e.printStackTrace(); } } }); }
 	 */
 
-    public SelectorAlimentos(BoletaCompra boleta) {
+    public SelectorAlimentos(BoletaCompra boleta, JFrame anterior) {
+        this.ventanaAnterior = anterior;
+        this.boletaActual = boleta;
+        anterior.setVisible(false);
     	
-    	this.boletaActual = boleta;
+    	
     	
         combos = Alimento.comboAlimento();
         snacks = Alimento.comboSnacks();
@@ -164,13 +167,14 @@ public class SelectorAlimentos extends JFrame {
         disposeAlimentos();
     }
 
-	private void disposeAlimentos() {
+    private void disposeAlimentos() {
         addWindowListener(new WindowAdapter() {
-            @Override
+            
             public void windowClosing(WindowEvent e) {
+                ventanaAnterior.setVisible(true);
                 resetAlimentos();
             }
-            @Override
+            
             public void windowClosed(WindowEvent e) {
                 resetAlimentos();
             }
@@ -329,17 +333,10 @@ public class SelectorAlimentos extends JFrame {
     }
 
     private void irABoleta() {
-        // TODO: conectar con asientos y pasar datos reales
-		/*
-		 * if (agregados.isEmpty()) { javax.swing.JOptionPane.showMessageDialog(this,
-		 * "Debes agregar al menos un producto.", "Aviso",
-		 * javax.swing.JOptionPane.WARNING_MESSAGE); return; }
-		 */
-    	BoletaCompra boletaActualizada = boletaActual;
-    	boletaActualizada.carrito = agregados;
-    	
-        Boleta boleta = new Boleta(boletaActualizada);
-        boleta.setSize(800, 720);
+
+        boletaActual.carrito = agregados;
+        Boleta boleta = new Boleta(boletaActual, this);
+        boleta.setSize(489, 624);
         boleta.setLocationRelativeTo(null);
         boleta.setVisible(true);
     }
