@@ -243,11 +243,14 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 	}
 
 	void irAlimentos() {
+		// Ordena asientos alfabéticamente
+		Set<String> ordenAsientos = new TreeSet<>(selectedAsientos);
+		
 	    BoletaCompra boleta = new BoletaCompra(
 	        usuarioActual,
 	        peliculaActual,
 	        funcionActual,
-	        selectedAsientos
+	        ordenAsientos
 	    );
 	    SelectorAlimentos alimentos = new SelectorAlimentos(boleta, this);
 	    alimentos.setSize(800, 720);

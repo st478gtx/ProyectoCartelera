@@ -74,7 +74,7 @@ public class Boleta extends JFrame implements ActionListener {
         contentPane.add(cabecera);
 
         JLabel tituloLbl = new JLabel("BOLETA DE COMPRA");
-        tituloLbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+        tituloLbl.setFont(new Font("Segoe UI", Font.BOLD, 20));
         tituloLbl.setForeground(Color.WHITE);
         tituloLbl.setHorizontalAlignment(SwingConstants.CENTER);
         tituloLbl.setBounds(0, 0, 480, 55);
@@ -133,21 +133,21 @@ public class Boleta extends JFrame implements ActionListener {
         lblAsientos.setBorder(new EmptyBorder(2, 10, 2, 0));
         panelContenido.add(lblAsientos);
 
-        agregarFila("Entradas:", boleta.boletos.size() + "  x  S/ 30.00  =  S/ " +
-            String.format("%.2f", boleta.boletos.size() * 30.00));
+        agregarFila("Entradas:", boleta.boletos.size() + "  x  S/ 30.00  = " + 
+        		boleta.formatoPrecio(boleta.boletos.size() * 30.00));
         agregarSeparador();
 
         //snacks
         agregarTituloSeccion("SNACKS Y COMBOS");
 
         double totalSnacks = 0;
-        for (Map.Entry<Alimento, Integer> entry : boleta.carrito.entrySet()) {
+        for (var entry : boleta.carrito.entrySet()) {
             Alimento alimento = entry.getKey();
             int cantidad = entry.getValue();
             double precioItem = alimento.precio * cantidad;
             totalSnacks += precioItem;
             agregarFilaItem(cantidad + "  x  " + alimento.nombre,
-                "S/ " + String.format("%.2f", precioItem));
+                boleta.formatoPrecio(precioItem));
         }
         //Si no agrego snacks muestra un mensaje
         if (boleta.carrito.isEmpty()) {
@@ -162,23 +162,23 @@ public class Boleta extends JFrame implements ActionListener {
 
         //Calcula los totales
         double subtotal = (boleta.boletos.size() * 30.00) + totalSnacks;
-        double descuento = calcularDescuento(boleta.boletos.size(), subtotal);
+        double descuento = boleta.calcularDescuento(boleta.boletos.size(), subtotal);
         double total = subtotal - descuento;
 
-        agregarFilaItem("Subtotal:", "S/ " + String.format("%.2f", subtotal));
+        agregarFilaItem("Subtotal:", boleta.formatoPrecio(subtotal));
 
         // Fila del descuento en rojo
         JPanel filaDesc = new JPanel(null);
         filaDesc.setBackground(PANEL);
         filaDesc.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
 
-        JLabel lblDesc = new JLabel("Descuento (" + calcularPorcentaje(boleta.boletos.size()) + "%):");
-        lblDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        JLabel lblDesc = new JLabel("Descuento (" + boleta.calcularPorcentaje(boleta.boletos.size()) + "%):");
+        lblDesc.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         lblDesc.setForeground(TEXTO_GRIS);
         lblDesc.setBounds(10, 3, 220, 20);
         filaDesc.add(lblDesc);
 
-        JLabel lblValDesc = new JLabel("- S/ " + String.format("%.2f", descuento));
+        JLabel lblValDesc = new JLabel("- " + boleta.formatoPrecio(descuento));
         lblValDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblValDesc.setForeground(new Color(220, 80, 80));
         lblValDesc.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -195,12 +195,12 @@ public class Boleta extends JFrame implements ActionListener {
         filaTotal.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
 
         JLabel lblTotalTxt = new JLabel("TOTAL A PAGAR:");
-        lblTotalTxt.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblTotalTxt.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblTotalTxt.setForeground(TEXTO);
         lblTotalTxt.setBounds(10, 3, 200, 25);
         filaTotal.add(lblTotalTxt);
 
-        JLabel lblTotalVal = new JLabel("S/ " + String.format("%.2f", total));
+        JLabel lblTotalVal = new JLabel(boleta.formatoPrecio(total));
         lblTotalVal.setFont(new Font("Tahoma", Font.BOLD, 15));
         lblTotalVal.setForeground(NARANJA);
         lblTotalVal.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -216,7 +216,7 @@ public class Boleta extends JFrame implements ActionListener {
     // Agrega un título de sección naranja
     private void agregarTituloSeccion(String texto) {
         JLabel lbl = new JLabel(texto);
-        lbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lbl.setFont(new Font("Segoe UI", Font.BOLD, 11));
         lbl.setForeground(NARANJA);
         lbl.setBorder(new EmptyBorder(8, 0, 4, 0));
         panelContenido.add(lbl);
@@ -229,7 +229,7 @@ public class Boleta extends JFrame implements ActionListener {
         fila.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
 
         JLabel lblClave = new JLabel(clave);
-        lblClave.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblClave.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblClave.setForeground(TEXTO_GRIS);
         lblClave.setBounds(0, 3, 120, 20);
         fila.add(lblClave);
@@ -238,6 +238,7 @@ public class Boleta extends JFrame implements ActionListener {
         lblValor.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblValor.setForeground(TEXTO);
         lblValor.setBounds(125, 3, 265, 20);
+        lblValor.setHorizontalAlignment(SwingConstants.RIGHT);
         fila.add(lblValor);
 
         panelContenido.add(fila);
@@ -250,7 +251,7 @@ public class Boleta extends JFrame implements ActionListener {
         fila.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 25));
 
         JLabel lblNombre = new JLabel(nombre);
-        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNombre.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         lblNombre.setForeground(TEXTO);
         lblNombre.setBounds(10, 3, 220, 20);
         fila.add(lblNombre);
@@ -272,28 +273,7 @@ public class Boleta extends JFrame implements ActionListener {
         sep.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 10));
         panelContenido.add(sep);
     }
-
-    private double calcularDescuento(int cantidad, double subtotal) {
-        if (cantidad == 1)
-        	return subtotal * 0.075;
-        else if (cantidad <= 4)
-        	return subtotal * 0.10;
-        else if (cantidad <= 7)
-        	return subtotal * 0.125;
-        else
-        	return subtotal * 0.15;
-    }
-
-    private double calcularPorcentaje(int cantidad) {
-        if (cantidad == 1)
-        	return 7.5;
-        else if (cantidad <= 4)
-        	return 10.0;
-        else if (cantidad <= 7)
-        	return 12.5;
-        else
-        	return 15.0;
-    }
+  
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnAtras) {
