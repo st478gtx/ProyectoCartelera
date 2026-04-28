@@ -20,9 +20,9 @@ public class Alimento {
 		combos.add(new Alimento("COMBO DUO", "S/ 74.80 - 2 Popcorn grandes + 2 gaseosas", "resources/alimentos/combos/15453-1765903024362.png", 74.80));
 	    combos.add(new Alimento("COMBO TRIO", "S/ 89.90 - 3 Popcorn grandes + 3 gaseosas", "resources/alimentos/combos/14588-1752610832530.png", 89.90));
 	    combos.add(new Alimento("COMBO FRANKFURTER", "S/ 31.80 - Hot Dog + gaseosa mediana", "resources/alimentos/combos/528-1755100170631.png", 31.80));
-	 	combos.add(new Alimento("COMBO PERSONAL", "S/ 36.20 - 1 Canchita Mediana Salada + 1 Gaseosa Mediana", "resources/alimentos/combos/combo_personal", 36.20));
-	    combos.add(new Alimento("COMBO GIGANTE", "S/ 67.90 - 2 Gaseosas medianas + 1 Cancha gigante salada", "resources/alimentos/combos/combo_gigantee", 67.90));
-	    combos.add(new Alimento("COMBO PAREJA", "S/ 55.30 - 1 Canchita Grande Salada + 2 Gaseosas Medianas", "resources/alimentos/combos/combo_pareja", 55.30));
+	 	combos.add(new Alimento("COMBO PERSONAL", "S/ 36.20 - 1 Canchita Mediana Salada + 1 Gaseosa Mediana", "resources/alimentos/combos/combo_personal.png", 36.20));
+	    combos.add(new Alimento("COMBO GIGANTE", "S/ 67.90 - 2 Gaseosas medianas + 1 Cancha gigante salada", "resources/alimentos/combos/combo_gigante.png", 67.90));
+	    combos.add(new Alimento("COMBO PAREJA", "S/ 55.30 - 1 Canchita Grande Salada + 2 Gaseosas Medianas", "resources/alimentos/combos/combo_pareja.png", 55.30));
        	
 		return combos;
 	}
@@ -46,8 +46,8 @@ public class Alimento {
 		bebidas.add(new Alimento("GASEOSA MEDIANA", "S/ 12.60 - Gaseosa sabor original", "resources/alimentos/bebidas/gaseosa_mediana.png", 12.60));
 		bebidas.add(new Alimento("AGUA SIN GAS", "S/ 6.00 - Agua San Luis mineral", "resources/alimentos/bebidas/agua_sin_gas.png", 6.00));
 		bebidas.add(new Alimento("FRUGOS X 300ML", "S/ 7.00 - Del Valle néctar de fruta", "resources/alimentos/bebidas/frugos.png", 7.00));
-		bebidas.add(new Alimento("CHICHA MEDIANA", "S/ 18.10 *Chicha mediana", "resources/alimentos/bebidas/chicha_mediana.png", 18.10));
-		bebidas.add(new Alimento("CHICHA GRANDE", "S/ 19.10 *Chicha grande", "resources/alimentos/bebidas/chicha_grande.png", 19.10));
+		bebidas.add(new Alimento("CHICHA MEDIANA", "S/ 18.10 Chicha mediana", "resources/alimentos/bebidas/chicha_mediana.png", 18.10));
+		bebidas.add(new Alimento("CHICHA GRANDE", "S/ 19.10 Chicha grande", "resources/alimentos/bebidas/chicha_grande.png", 19.10));
 		return bebidas;
 	}
 	
