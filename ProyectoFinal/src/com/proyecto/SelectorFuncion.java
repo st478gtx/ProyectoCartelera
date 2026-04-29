@@ -142,59 +142,57 @@ public class SelectorFuncion extends JFrame {
 		contentPane.add(lblFuncionTitulo);
 	}
 
-	private void generarHorarios(Cartelera pelicula, Usuario usuario) {
-		for (var horario : pelicula.funciones) {
-			
-			panel.add(crearTarjetaHorario(usuario, horario, pelicula));
-		}
-	}
+    //Recorre los horarios de la pelicula y crea una tarjeta por cada uno
+	
+    private void generarHorarios(Cartelera pelicula, Usuario usuario) {
+        for (int i = 0; i < pelicula.funciones.size(); i++) {
+            Funcion horario = pelicula.funciones.get(i);
+            panel.add(crearTarjetaHorario(usuario, horario, pelicula));
+        }
+    }
 
-	private JPanel crearTarjetaHorario(Usuario usuario, Funcion horario, Cartelera pelicula) {
-		
-		JPanel card = new JPanel();
-		card.setLayout(new BoxLayout(card, BoxLayout.X_AXIS));
-		card.setPreferredSize(new Dimension(220, 100));
-		card.setBackground(new Color(40, 40, 40));
-		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));		
-		//Sala
-		JLabel sala = new JLabel(horario.sala.nombre);
-		sala.setForeground(Color.white);
-		sala.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		
-		
-		//Horario
-		JLabel hora = new JLabel(horario.hora);
-		hora.setHorizontalAlignment(SwingConstants.CENTER);
-		hora.setBackground(new Color(255, 128, 64));
-		hora.setPreferredSize(new Dimension(120, 40));
-		hora.setOpaque(true);
-		hora.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		hora.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		card.add(Box.createVerticalGlue());
-		card.add(sala);
-		card.add(Box.createVerticalStrut(10));
-		card.add(hora);
-		card.add(Box.createVerticalGlue());
+    // Crea la tarjeta visual de un horario con sala y hora
+    private JPanel crearTarjetaHorario(Usuario usuario, Funcion horario, Cartelera pelicula) {
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.X_AXIS));
+        card.setPreferredSize(new Dimension(220, 100));
+        card.setBackground(new Color(40, 40, 40));
+        card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		hora.addMouseListener(labelClick(horario, usuario, pelicula));
-		
-		return card;
-	}
+        //Sala
+        JLabel sala = new JLabel(horario.sala.nombre);
+        sala.setForeground(Color.white);
+        sala.setFont(new Font("Segoe UI", Font.BOLD, 20));
 
-	private MouseAdapter labelClick(Funcion horario, Usuario usuario, Cartelera pelicula) {
-		return new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+        //hora
+        JLabel hora = new JLabel(horario.hora);
+        hora.setHorizontalAlignment(SwingConstants.CENTER);
+        hora.setBackground(new Color(255, 128, 64));
+        hora.setPreferredSize(new Dimension(120, 40));
+        hora.setOpaque(true);
+        hora.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        hora.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-				if (usuario.getUsuarioLogueado().equals("")) {
-					mensajeCompra();
-				} else {
-					abrirSelectorAsientos(usuario, comboBox.getSelectedItem().toString(), horario, pelicula);
-				}
-			}
-		};
-	}
+        card.add(Box.createVerticalGlue());
+        card.add(sala);
+        card.add(Box.createVerticalStrut(10));
+        card.add(hora);
+        card.add(Box.createVerticalGlue());
+
+        //al hacer clic en la hora abre el selector de asientos
+        hora.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                // Si no hay usuario logueado muestra mensaje, sino abre asientos
+                if (usuario.getUsuarioLogueado().equals("")) {
+                    mensajeCompra();
+                } else {
+                    abrirSelectorAsientos(usuario, comboBox.getSelectedItem().toString(), horario, pelicula);
+                }
+            }
+        });
+
+        return card;
+    }
 
 	private ImageIcon imagenProcesada(String ruta) {
 		ImageIcon original = new ImageIcon(ruta);
