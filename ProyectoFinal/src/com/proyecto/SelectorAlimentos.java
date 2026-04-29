@@ -318,8 +318,6 @@ public class SelectorAlimentos extends JFrame {
 
     public void updateAgregados() {    	
     	
-        //int total = agregados.values().stream().mapToInt(Integer::intValue).sum();
-        
         int total = 0;
         
         for(var agregado : agregados.values()) {

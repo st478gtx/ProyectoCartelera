@@ -144,12 +144,13 @@ public class SelectorFuncion extends JFrame {
 
     //Recorre los horarios de la pelicula y crea una tarjeta por cada uno
 	
-    private void generarHorarios(Cartelera pelicula, Usuario usuario) {
-        for (int i = 0; i < pelicula.funciones.size(); i++) {
-            Funcion horario = pelicula.funciones.get(i);
-            panel.add(crearTarjetaHorario(usuario, horario, pelicula));
-        }
-    }
+
+		private void generarHorarios(Cartelera pelicula, Usuario usuario) {
+			for (Funcion horario : pelicula.funciones) {
+				panel.add(crearTarjetaHorario(usuario, horario, pelicula));
+			}
+	}
+
 
     // Crea la tarjeta visual de un horario con sala y hora
     private JPanel crearTarjetaHorario(Usuario usuario, Funcion horario, Cartelera pelicula) {
