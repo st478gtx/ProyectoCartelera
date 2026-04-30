@@ -125,14 +125,14 @@ public class Login extends JFrame {
 
 	private void validarLogin(Usuario usuarioBD, InicioCartelera ventanaCartelera) {
 		String usuario = userTxtF.getText().trim();
-		String password = new String(passwordPwF.getPassword()).trim();
+		String contraseña = new String(passwordPwF.getPassword()).trim(); 
 
-		if (usuario.isEmpty() || password.isEmpty()) {
+		if (usuario.isEmpty() || contraseña.isEmpty()) {
 			errorLbl.setText("Por favor completa todos los campos.");
 			return;
 		}
 
-		if (usuarioBD.esUsuarioValido(usuario, password)) {
+		if (usuarioBD.esUsuarioValido(usuario, contraseña)) {
 			// Login exitoso,  abre cartelera y cierra login
 			ventanaCartelera.usuarioLogueado();
 			ventanaCartelera.buttomLogout();
