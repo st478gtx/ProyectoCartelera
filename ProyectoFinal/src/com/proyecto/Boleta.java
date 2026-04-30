@@ -114,8 +114,6 @@ public class Boleta extends JFrame implements ActionListener {
     }
 
     private void cargarDatos(BoletaCompra boleta) {
-    	// Limpia el panel antes de cargar los datos
-        panelContenido.removeAll();
 
         //Seccion pelicul
         agregarTituloSeccion("PELÍCULA");
