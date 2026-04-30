@@ -216,9 +216,6 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 
 				String id = asiento.getText();
 
-				// if (!asientosOcupados.contains(id) && !asiento.isSelected()) {
-				// asiento.setEnabled(false);
-				// }
 				if (!asiento.isSelected()) {
 					asiento.setEnabled(false);
 				}
@@ -230,10 +227,8 @@ public class SelectorAsientos extends JFrame implements ActionListener {
 
 				String id = asiento.getText();
 
-				// if (!asientosOcupados.contains(id)) {
-
 				asiento.setEnabled(true);
-				// }
+				
 			}
 		}
 
