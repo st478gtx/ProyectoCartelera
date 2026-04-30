@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -108,6 +109,7 @@ public class Boleta extends JFrame implements ActionListener {
         btnConfirmar.setForeground(Color.WHITE);
         btnConfirmar.setFocusPainted(false);
         btnConfirmar.setBorder(null);
+        btnConfirmar.addActionListener(this);
         contentPane.add(btnConfirmar);
 
         cargarDatos(boleta);
@@ -274,10 +276,15 @@ public class Boleta extends JFrame implements ActionListener {
         panelContenido.add(sep);
     }
   
+    
+   
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnAtras) {
             actionPerformedBtnAtras(e);
+        }else if (e.getSource() == btnConfirmar) {
+        	mostrarCompraExito();
+        	
         }
     }
     
@@ -285,4 +292,12 @@ public class Boleta extends JFrame implements ActionListener {
         ventanaAnterior.setVisible(true);
         dispose();
     	}
-	}
+	
+
+    public void mostrarCompraExito() {
+	
+	JOptionPane.showMessageDialog(null, "Compra realizada con exito.","Confirmacion",JOptionPane.PLAIN_MESSAGE);
+	dispose();
+}}
+
+
