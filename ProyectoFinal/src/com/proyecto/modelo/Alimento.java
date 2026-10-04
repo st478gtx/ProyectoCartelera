@@ -30,12 +30,12 @@ public class Alimento {
 	public static ArrayList<Alimento> comboSnacks(){
 		ArrayList<Alimento> snacks = new ArrayList<>();
 	
-		snacks.add(new Alimento("CANCHITA MEDIANA SALADA", "S/ 18.10 - Canchita Mediana Salada", "resources/alimentos/snacks/mediana_salada.png", 18.10));
-		snacks.add(new Alimento("CANCHITA MEDIANA DULCE", "S/ 22.10 - Canchita Mediana Dulce", "resources/alimentos/snacks/mediana_dulce.png", 22.10));
-		snacks.add(new Alimento("CANCHITA MEDIANA MIXTA", "S/ 22.10 - Canchita Mediana Mixta", "resources/alimentos/snacks/mediana_mixta.png", 22.10));
-		snacks.add(new Alimento("CANCHITA GRANDE SALADA", "S/ 19.10 - Canchita Grande Salada", "resources/alimentos/snacks/grande_salada.png", 19.10));
-		snacks.add(new Alimento("CANCHITA GRANDE DULCE", "S/ 23.10 - Canchita Grande Dulce", "resources/alimentos/snacks/grande_dulce.png", 23.10));
-		snacks.add(new Alimento("CANCHITA GRANDE MIXTA", "S/ 23.10 - Canchita Grande Mixta", "resources/alimentos/snacks/grande_mixta.png", 23.10));
+		snacks.add(new Alimento("POPCORN M SALADA", "S/ 18.10 - Canchita Mediana Salada", "resources/alimentos/snacks/mediana_salada.png", 18.10));
+		snacks.add(new Alimento("POPCORN M DULCE", "S/ 22.10 - Canchita Mediana Dulce", "resources/alimentos/snacks/mediana_dulce.png", 22.10));
+		snacks.add(new Alimento("POPCORN M MIXTA", "S/ 22.10 - Canchita Mediana Mixta", "resources/alimentos/snacks/mediana_mixta.png", 22.10));
+		snacks.add(new Alimento("POPCORN G SALADA", "S/ 19.10 - Canchita Grande Salada", "resources/alimentos/snacks/grande_salada.png", 19.10));
+		snacks.add(new Alimento("POPCORN G DULCE", "S/ 23.10 - Canchita Grande Dulce", "resources/alimentos/snacks/grande_dulce.png", 23.10));
+		snacks.add(new Alimento("POPCORN G MIXTA", "S/ 23.10 - Canchita Grande Mixta", "resources/alimentos/snacks/grande_mixta.png", 23.10));
 		return snacks;
 	}
 	

@@ -22,7 +22,7 @@ public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField userTxtF;
-	private JPasswordField passwordTxtF;
+	private JPasswordField passwordPwF;
 	private JButton ingresarBtn;
 	private JLabel tituloLbl;
 	private JLabel subtituloLbl;
@@ -92,15 +92,15 @@ public class Login extends JFrame {
 		contentPane.add(passwordLbl);
 
 		// Campo password
-		passwordTxtF = new JPasswordField();
-		passwordTxtF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		passwordTxtF.setBounds(40, 227, 300, 38);
-		passwordTxtF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+		passwordPwF = new JPasswordField();
+		passwordPwF.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		passwordPwF.setBounds(40, 227, 300, 38);
+		passwordPwF.setBorder(javax.swing.BorderFactory.createCompoundBorder(
 				javax.swing.BorderFactory.createLineBorder(new Color(255, 128, 0)),
 				javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
 		// También ingresar con Enter desde el campo password
-		passwordTxtF.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
-		contentPane.add(passwordTxtF);
+		passwordPwF.addActionListener(e -> validarLogin(usuarioBD, ventanaCartelera));
+		contentPane.add(passwordPwF);
 
 		// Label error (oculto por defecto)
 		errorLbl = new JLabel("");
@@ -125,21 +125,21 @@ public class Login extends JFrame {
 
 	private void validarLogin(Usuario usuarioBD, InicioCartelera ventanaCartelera) {
 		String usuario = userTxtF.getText().trim();
-		String password = new String(passwordTxtF.getPassword()).trim();
+		String contraseña = new String(passwordPwF.getPassword()).trim(); 
 
-		if (usuario.isEmpty() || password.isEmpty()) {
+		if (usuario.isEmpty() || contraseña.isEmpty()) {
 			errorLbl.setText("Por favor completa todos los campos.");
 			return;
 		}
 
-		if (usuarioBD.esUsuarioValido(usuario, password)) {
-			// Login exitoso → abre cartelera y cierra login
+		if (usuarioBD.esUsuarioValido(usuario, contraseña)) {
+			// Login exitoso,  abre cartelera y cierra login
 			ventanaCartelera.usuarioLogueado();
 			ventanaCartelera.buttomLogout();
 			dispose();
 		} else {
 			errorLbl.setText("Usuario o contraseña incorrectos.");
-			passwordTxtF.setText("");
+			passwordPwF.setText("");
 		}
 	}
 }
