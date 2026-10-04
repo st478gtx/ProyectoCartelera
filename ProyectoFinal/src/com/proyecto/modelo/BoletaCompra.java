@@ -14,7 +14,6 @@ public class BoletaCompra {
 	public Funcion funcion;
 	public Set<String> boletos;
 	public Map<Alimento, Integer> carrito = new LinkedHashMap<>();
-	public double subTotal;
 
 	public BoletaCompra(Usuario usuario, Cartelera pelicula, Funcion funcion, Set<String> boletos) {
 		this.usuario = usuario;

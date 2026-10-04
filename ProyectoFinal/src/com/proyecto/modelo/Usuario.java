@@ -40,9 +40,11 @@ public class Usuario {
 
 		Usuario user1 = new Usuario("marco", "1234");
 		Usuario user2 = new Usuario("felix", "12345");
+		Usuario user3 = new Usuario("lua", "12345");
 
 		usuarios.add(user1);
 		usuarios.add(user2);
+		usuarios.add(user3);
 
 		return usuarios;
 	}
